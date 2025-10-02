@@ -118,23 +118,27 @@ function displaySlide(index) {
         const wrapper = document.querySelector('.slide-content-wrapper');
         wrapper.style.display = 'block'; 
         slideImage.style.display = 'none';
-        slideText.style.width = '100%'; 
-        slideText.style.height = 'auto';
+        
+        // FIX: Makes the final apology text box tall and scrollable
+        slideText.style.width = '90%'; 
+        slideText.style.height = '70vh'; 
+        slideText.style.overflowY = 'scroll'; 
         slideText.style.textAlign = 'center';
 
     } else {
         // Color Change for all other slides
         changeBodyColor(); 
         
-        // Reset styles
+        // Reset styles for regular slides
         container.style.backgroundColor = 'rgba(255, 255, 255, 0.85)'; 
         slideText.style.color = '#333';
         slideText.style.fontSize = '1em';
         
         const wrapper = document.querySelector('.slide-content-wrapper');
         wrapper.style.display = 'flex'; 
-        slideText.style.width = '180px'; 
-        slideText.style.height = '380px';
+        slideText.style.width = '200px'; 
+        slideText.style.height = '390px'; 
+        slideText.style.overflowY = 'auto'; 
         slideText.style.textAlign = 'left';
     }
 
