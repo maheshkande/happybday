@@ -1,4 +1,3 @@
-
 // --- Elements ---
 const musicElement = document.getElementById('backgroundMusic'); 
 const initialPopup = document.getElementById('initialPopup');
@@ -9,9 +8,9 @@ const slideImage = document.getElementById('slideImage');
 const slideText = document.getElementById('slideText');
 const nextSlideButton = document.getElementById('nextSlideButton');
 const container = document.querySelector('.container'); 
-const body = document.querySelector('body'); // Need to target the body for the subtle color change
+const body = document.querySelector('body'); 
 
-// --- Color Palette for Transitions (You can change these colors if you want!) ---
+// --- Color Palette for Transitions ---
 const colorPalette = [
     '#ffc0cb', // Light Pink
     '#add8e6', // Light Blue
@@ -22,7 +21,7 @@ const colorPalette = [
     '#bdb76b'  // Dark Khaki (subtle yellow)
 ];
 
-// --- Story Data (FINAL VERSION - 9 Slides, 8 Pictures with exact file names) ---
+// --- Story Data ---
 const slideData = [
     {
         image: 'Snapchat-1145838159.jpg', 
@@ -78,7 +77,6 @@ function typeWriter(text, i, element, callback) {
         const char = text.substring(i, i + 1);
         element.innerHTML = text.substring(0, i + 1).replace(/\n/g, '<br>');
         
-        // You can change the '30' below to make it type faster (e.g., '10') or slower (e.g., '50')
         setTimeout(() => {
             typeWriter(text, i + 1, element, callback);
         }, 30); 
@@ -89,19 +87,19 @@ function typeWriter(text, i, element, callback) {
 }
 
 // -----------------------------------------------------------
-// C. COLOR CHANGER FUNCTION
+// B. COLOR CHANGER FUNCTION
 // -----------------------------------------------------------
 function changeBodyColor() {
     const randomIndex = Math.floor(Math.random() * colorPalette.length);
     const newColor = colorPalette[randomIndex];
     
-    // Smoothly transition the background color of the body
+    // Smoothly transition the body's background color
     body.style.backgroundColor = newColor;
 }
 
 
 // -----------------------------------------------------------
-// D. DISPLAY SLIDE FUNCTION
+// C. DISPLAY SLIDE FUNCTION
 // -----------------------------------------------------------
 function displaySlide(index) {
     const slide = slideData[index];
@@ -111,32 +109,40 @@ function displaySlide(index) {
     // --- CRITICAL FIX: LAST SLIDE & COLOR CHANGE STYLE ---
     if (isLastSlide) {
         // Black background for the final slide
-        container.style.backgroundColor = 'rgba(0, 0, 0, 0.95)'; // Near-black opaque
-        storySlide.style.color = 'white'; 
+        container.style.backgroundColor = 'rgba(0, 0, 0, 0.95)'; 
+        body.style.backgroundColor = 'black'; 
         slideText.style.color = 'white';
-        // Hide the picture wrapper for full-screen text focus
-        document.querySelector('.slide-content-wrapper').style.justifyContent = 'center';
-        document.querySelector('.slide-content-wrapper').style.flexDirection = 'column';
+        slideText.style.fontSize = '1.2em';
+        
+        // Hide the picture wrapper and center the text
+        const wrapper = document.querySelector('.slide-content-wrapper');
+        wrapper.style.display = 'block'; 
+        slideImage.style.display = 'none';
+        slideText.style.width = '100%'; 
+        slideText.style.height = 'auto';
+        slideText.style.textAlign = 'center';
 
     } else {
         // Color Change for all other slides
-        changeBodyColor(); // Randomly change the background color
+        changeBodyColor(); 
         
         // Reset styles
         container.style.backgroundColor = 'rgba(255, 255, 255, 0.85)'; 
-        storySlide.style.color = '#1a1a1a'; 
         slideText.style.color = '#333';
-        document.querySelector('.slide-content-wrapper').style.justifyContent = 'space-between';
-        document.querySelector('.slide-content-wrapper').style.flexDirection = 'row';
+        slideText.style.fontSize = '1em';
+        
+        const wrapper = document.querySelector('.slide-content-wrapper');
+        wrapper.style.display = 'flex'; 
+        slideText.style.width = '180px'; 
+        slideText.style.height = '380px';
+        slideText.style.textAlign = 'left';
     }
 
-    // 1. Handle Image Display
+    // 1. Handle Image Display (Standard Slides)
     if (slide.image) {
         slideImage.style.display = 'block';
         slideImage.src = slide.image;
-    } else {
-        slideImage.style.display = 'none'; 
-    }
+    } 
 
     // 2. Set Button Text
     if (isLastSlide) {
@@ -153,7 +159,7 @@ function displaySlide(index) {
 
 
 // -----------------------------------------------------------
-// E. EVENT LISTENERS
+// D. EVENT LISTENERS
 // -----------------------------------------------------------
 
 // 1. Initial Start Button Click (Gatekeeper)
@@ -181,8 +187,8 @@ nextSlideButton.addEventListener('click', () => {
         currentSlideIndex++;
         displaySlide(currentSlideIndex);
     } else {
-        // Stop music when looping back to prevent confusion
-        musicElement.pause();
+        // FIX: Play music when looping back to the first slide
+        musicElement.play();
         currentSlideIndex = 0;
         displaySlide(currentSlideIndex);
     }
