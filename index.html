@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,6 @@
     /* GENERAL BODY & BACKGROUND */
     /* ------------------------------------------------ */
     body { 
-        /* Uses Poppins and Dancing Script fonts loaded above */
         font-family: 'Poppins', sans-serif; 
         text-align: center; 
         margin: 0;
@@ -27,7 +26,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden; /* Hide scrollbar */
+        overflow: hidden; 
+        transition: background-color 0.8s ease; /* Smooth transition for color change */
     }
     .container { 
         display: flex; 
@@ -45,15 +45,15 @@
     /* INITIAL POPUP (START SCREEN) */
     /* ------------------------------------------------ */
     #initialPopup {
-        background: #fdf5f8; /* Very soft pink/white background */
+        background: #fdf5f8; 
         padding: 40px;
         border-radius: 15px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         max-width: 90%;
-        font-family: 'Dancing Script', cursive; /* Elegant font for the welcome text */
+        font-family: 'Dancing Script', cursive; 
     }
     #startButton {
-        background-color: #d881ab; /* Elegant berry pink */
+        background-color: #d881ab; 
         color: white;
         border: none;
         border-radius: 8px;
@@ -73,7 +73,7 @@
     #storySlide {
         display: none; 
         max-width: 90%;
-        width: 380px;
+        width: 380px; 
         height: 85vh; 
         padding: 10px;
         background: transparent;
@@ -103,20 +103,20 @@
         border: 4px solid #b57a9f; 
         border-radius: 4px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        margin: 0; /* Remove default margin */
+        margin: 0; 
     }
 
     /* Style for the text box (right side) */
     #slideText {
         width: 180px; 
-        height: 380px; /* Use more height for the text box */
+        height: 380px; 
         white-space: pre-wrap;
         font-size: 1em; 
         color: #333;
         padding: 10px;
         overflow-y: auto; 
         text-align: left;
-        background: rgba(255, 255, 255, 0.7); /* Light background for the text box */
+        background: rgba(255, 255, 255, 0.7); 
         border: 1px solid #ddd;
         border-radius: 5px;
     }
