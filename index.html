@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Dearest Sister</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap">
 
 <style>
     /* ------------------------------------------------ */
     /* GENERAL BODY & BACKGROUND */
     /* ------------------------------------------------ */
     body { 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        /* Uses Poppins and Dancing Script fonts loaded above */
+        font-family: 'Poppins', sans-serif; 
         text-align: center; 
         margin: 0;
         /* Set the beautiful template image as the background */
@@ -19,8 +22,12 @@
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        color: #1a1a1a; /* Darker text for readability */
-        transition: background-color 0.5s ease-in-out; /* Smooth transition */
+        color: #1a1a1a;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Hide scrollbar */
     }
     .container { 
         display: flex; 
@@ -28,6 +35,7 @@
         justify-content: center; 
         align-items: center; 
         min-height: 100vh;
+        width: 100%;
         padding: 20px;
         /* Light overlay to make content readable */
         background: rgba(255, 255, 255, 0.85); 
@@ -40,8 +48,9 @@
         background: #fdf5f8; /* Very soft pink/white background */
         padding: 40px;
         border-radius: 15px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         max-width: 90%;
+        font-family: 'Dancing Script', cursive; /* Elegant font for the welcome text */
     }
     #startButton {
         background-color: #d881ab; /* Elegant berry pink */
@@ -52,50 +61,68 @@
         font-size: 1.1em;
         cursor: pointer;
         transition: background-color 0.3s;
+        font-family: 'Poppins', sans-serif;
     }
     #startButton:hover {
         background-color: #c9719a;
     }
 
     /* ------------------------------------------------ */
-    /* SLIDE CONTENT */
+    /* SLIDE CONTENT - Fixes the layout to match the image */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; 
         max-width: 90%;
-        width: 400px;
-        height: 85vh; /* Slightly taller for more space */
-        text-align: center;
+        width: 380px;
+        height: 85vh; 
         padding: 10px;
-        border-radius: 10px;
         background: transparent;
         line-height: 1.6;
-        justify-content: space-around;
+        flex-direction: column; 
+        justify-content: center;
         align-items: center;
-        transition: opacity 1s ease-in-out; /* Fade in/out slide effect */
+        transition: opacity 1s ease-in-out;
     }
+
+    /* Outer wrapper for the content, matching the frame position */
+    .slide-content-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        height: 400px;
+        margin-bottom: 20px;
+    }
+
+    /* Style for the actual photo frame (left side) */
     #slideImage {
-        /* This places the image near the top box */
-        max-width: 160px; 
-        max-height: 220px; 
+        width: 160px; 
+        height: 220px; 
         object-fit: cover;
-        border: 4px solid #b57a9f; /* Soft purple-pink border */
+        border: 4px solid #b57a9f; 
         border-radius: 4px;
-        margin: 10px auto; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin: 0; /* Remove default margin */
     }
+
+    /* Style for the text box (right side) */
     #slideText {
-        /* This places the text near the bottom box */
+        width: 180px; 
+        height: 380px; /* Use more height for the text box */
         white-space: pre-wrap;
         font-size: 1em; 
         color: #333;
-        padding: 5px;
-        max-width: 200px; 
-        max-height: 35vh; 
+        padding: 10px;
         overflow-y: auto; 
+        text-align: left;
+        background: rgba(255, 255, 255, 0.7); /* Light background for the text box */
+        border: 1px solid #ddd;
+        border-radius: 5px;
     }
+    
     #nextSlideButton {
-        background-color: #b57a9f; /* Soft purple-pink button */
+        background-color: #b57a9f;
         color: white;
         border: none;
         border-radius: 5px;
@@ -103,7 +130,7 @@
         font-size: 1.1em;
         cursor: pointer;
         transition: background-color 0.3s;
-        margin-top: 10px;
+        margin-top: 20px;
     }
     #nextSlideButton:hover {
         background-color: #a46d8e;
@@ -121,8 +148,10 @@
         </div>
 
         <div id="storySlide">
-            <img id="slideImage" src="" alt="A memory photo">
-            <p id="slideText"></p>
+            <div class="slide-content-wrapper">
+                <img id="slideImage" src="" alt="A memory photo">
+                <p id="slideText"></p>
+            </div>
             <button id="nextSlideButton">Next Memory</button>
         </div>
     </div>
