@@ -1,3 +1,4 @@
+
 // --- Elements ---
 const musicElement = document.getElementById('backgroundMusic'); 
 const initialPopup = document.getElementById('initialPopup');
@@ -7,6 +8,19 @@ const storySlide = document.getElementById('storySlide');
 const slideImage = document.getElementById('slideImage');
 const slideText = document.getElementById('slideText');
 const nextSlideButton = document.getElementById('nextSlideButton');
+const container = document.querySelector('.container'); 
+const body = document.querySelector('body'); // Need to target the body for the subtle color change
+
+// --- Color Palette for Transitions (You can change these colors if you want!) ---
+const colorPalette = [
+    '#ffc0cb', // Light Pink
+    '#add8e6', // Light Blue
+    '#90ee90', // Light Green
+    '#f08080', // Light Coral
+    '#e6e6fa', // Lavender
+    '#ffa07a', // Light Salmon
+    '#bdb76b'  // Dark Khaki (subtle yellow)
+];
 
 // --- Story Data (FINAL VERSION - 9 Slides, 8 Pictures with exact file names) ---
 const slideData = [
@@ -74,14 +88,48 @@ function typeWriter(text, i, element, callback) {
     }
 }
 
+// -----------------------------------------------------------
+// C. COLOR CHANGER FUNCTION
+// -----------------------------------------------------------
+function changeBodyColor() {
+    const randomIndex = Math.floor(Math.random() * colorPalette.length);
+    const newColor = colorPalette[randomIndex];
+    
+    // Smoothly transition the background color of the body
+    body.style.backgroundColor = newColor;
+}
+
 
 // -----------------------------------------------------------
-// B. DISPLAY SLIDE FUNCTION
+// D. DISPLAY SLIDE FUNCTION
 // -----------------------------------------------------------
 function displaySlide(index) {
     const slide = slideData[index];
     slideText.innerHTML = ''; 
-    
+    const isLastSlide = index === slideData.length - 1;
+
+    // --- CRITICAL FIX: LAST SLIDE & COLOR CHANGE STYLE ---
+    if (isLastSlide) {
+        // Black background for the final slide
+        container.style.backgroundColor = 'rgba(0, 0, 0, 0.95)'; // Near-black opaque
+        storySlide.style.color = 'white'; 
+        slideText.style.color = 'white';
+        // Hide the picture wrapper for full-screen text focus
+        document.querySelector('.slide-content-wrapper').style.justifyContent = 'center';
+        document.querySelector('.slide-content-wrapper').style.flexDirection = 'column';
+
+    } else {
+        // Color Change for all other slides
+        changeBodyColor(); // Randomly change the background color
+        
+        // Reset styles
+        container.style.backgroundColor = 'rgba(255, 255, 255, 0.85)'; 
+        storySlide.style.color = '#1a1a1a'; 
+        slideText.style.color = '#333';
+        document.querySelector('.slide-content-wrapper').style.justifyContent = 'space-between';
+        document.querySelector('.slide-content-wrapper').style.flexDirection = 'row';
+    }
+
     // 1. Handle Image Display
     if (slide.image) {
         slideImage.style.display = 'block';
@@ -91,7 +139,6 @@ function displaySlide(index) {
     }
 
     // 2. Set Button Text
-    const isLastSlide = index === slideData.length - 1;
     if (isLastSlide) {
         nextSlideButton.innerText = 'Finished (Click to Re-read)'; 
     } else {
@@ -106,13 +153,13 @@ function displaySlide(index) {
 
 
 // -----------------------------------------------------------
-// C. EVENT LISTENERS
+// E. EVENT LISTENERS
 // -----------------------------------------------------------
 
 // 1. Initial Start Button Click (Gatekeeper)
 startButton.addEventListener('click', () => {
     // START MUSIC ONCE
-    musicElement.src = 'aud.mp3'; // Loads your chosen music file
+    musicElement.src = 'aud.mp3'; 
     musicElement.loop = true;
     musicElement.play().catch(error => {
         console.log('Music playback failed, continuing story.');
