@@ -1,4 +1,4 @@
-       <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,13 +23,12 @@
         background-attachment: fixed;
         color: #1a1a1a;
         min-height: 100vh;
-        /* FIX 1: Allow content to scroll if needed */
         display: block; 
         overflow-y: auto; 
         transition: background-color 0.8s ease; /* Smooth transition for color change */
     }
     .container { 
-        /* FIX 2: Corrected alignment for central positioning */
+        /* FINAL LAYOUT FIX: Sets a centered, fixed container over the background image */
         display: flex; 
         flex-direction: column;
         justify-content: center; 
@@ -89,27 +88,34 @@
     .slide-content-wrapper {
         display: flex;
         flex-direction: row;
+        /* Aligns content to the top left of the frames */
         justify-content: space-between;
         align-items: flex-start;
         width: 100%;
         height: 400px;
         margin-bottom: 20px;
+        /* Added position relative to help align inner elements */
+        position: relative; 
     }
 
     /* Style for the actual photo frame (left side) */
     #slideImage {
-        width: 150px; /* Final reduced width to give text space */
+        width: 150px; 
         height: 220px; 
         object-fit: cover;
         border: 4px solid #b57a9f; 
         border-radius: 4px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         margin: 0; 
+        /* POSITIONING FIX: Moves image into the upper-left frame */
+        position: absolute;
+        top: 25px; 
+        left: 20px;
     }
 
     /* Style for the text box (right side) */
     #slideText {
-        width: 210px; /* Final increased width */
+        width: 210px; 
         height: 390px; 
         white-space: pre-wrap;
         font-size: 1em; 
@@ -120,6 +126,10 @@
         background: rgba(255, 255, 255, 0.7); 
         border: 1px solid #ddd;
         border-radius: 5px;
+        /* POSITIONING FIX: Moves text into the upper-right frame */
+        position: absolute;
+        top: 25px; 
+        right: 20px; 
     }
     
     #nextSlideButton {
@@ -132,6 +142,8 @@
         cursor: pointer;
         transition: background-color 0.3s;
         margin-top: 20px;
+        position: relative; /* Keep button below the main layout */
+        z-index: 10;
     }
     #nextSlideButton:hover {
         background-color: #a46d8e;
