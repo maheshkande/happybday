@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,14 +10,26 @@
 
 <style>
     /* ------------------------------------------------ */
+    /* NEW: Pop/Flash Animation CSS */
+    /* ------------------------------------------------ */
+    @keyframes pop-flash {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.02); opacity: 0.9; box-shadow: 0 0 30px rgba(255, 255, 255, 0.8); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .pop-effect {
+        animation: pop-flash 0.3s ease-in-out;
+    }
+
+    /* ------------------------------------------------ */
     /* GENERAL BODY & BACKGROUND - (Elegant Texture + Color Animation) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
         text-align: center; 
         margin: 0;
-        /* Subtle repeating pattern for elegance (this WILL NOT conflict) */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Cg opacity='0.3'%3E%3Cpath fill='%23ffffff' d='M0 0h100v100H0z'/%3E%3Ccircle cx='10' cy='10' r='10' fill='%23f0f0f0'/%3E%3Cpath fill='%23f0f0f0' d='M20 0h60v20H20z'/%3E%3Cpath fill='%23f0f0f0' d='M0 20v60h20V20z'/%3E%3C/g%3E%3C/svg%3E");
+        /* Subtle repeating pattern for elegance (VISIBILITY INCREASED) */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Cg opacity='0.6'%3E%3Cpath fill='%23ffffff' d='M0 0h100v100H0z'/%3E%3Ccircle cx='10' cy='10' r='10' fill='%23f0f0f0'/%3E%3Cpath fill='%23f0f0f0' d='M20 0h60v20H20z'/%3E%3Cpath fill='%23f0f0f0' d='M0 20v60h20V20z'/%3E%3C/g%3E%3C/svg%3E");
         background-repeat: repeat;
         background-size: 80px 80px; 
         background-attachment: fixed;
