@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+                 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,27 +12,24 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* NEW: Sparkle/Confetti Animation CSS for the Button */
+    /* KEYFRAME ANIMATIONS (For Typing and Photo Pop) */
     /* ------------------------------------------------ */
     @keyframes sparkle-glow {
-        0% {
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5);
-            transform: scale(1);
-        }
-        50% {
-            /* Makes the button briefly "pop" and adds intense, colorful glow */
-            box-shadow: 0 0 15px #fff, 0 0 30px #d881ab, 0 0 45px #ffc0cb;
-            transform: scale(1.05);
-        }
-        100% {
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5);
-            transform: scale(1);
-        }
+        0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
+        50% { box-shadow: 0 0 15px #fff, 0 0 30px #d881ab, 0 0 45px #ffc0cb; transform: scale(1.05); }
+        100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
     }
-    .sparkle-effect {
-        animation: sparkle-glow 0.4s ease-out; /* Animation runs for 0.4 seconds */
+    .sparkle-effect { animation: sparkle-glow 0.4s ease-out; }
+    
+    /* NEW: Photo Frame Pop Animation */
+    @keyframes photo-pop {
+        0% { transform: scale(0.9) rotateZ(0deg); opacity: 0; }
+        100% { transform: scale(1) rotateZ(-3deg); opacity: 1; }
     }
-
+    .photo-pop-effect {
+        animation: photo-pop 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Smooth, quick animation */
+    }
+    
     /* ------------------------------------------------ */
     /* GENERAL BODY & BACKGROUND - (Clean Body for Story Slides) */
     /* ------------------------------------------------ */
@@ -40,14 +37,8 @@
         font-family: 'Poppins', sans-serif; 
         text-align: center; 
         margin: 0;
-        
-        /* RESTORED: Default clean background for STORY SLIDES */
-        background-color: #f0f0f0; /* Default light gray for body */
-        background-image: none; /* Crucial: Removes the tree image */
-        background-position: center;
-        background-repeat: repeat;
-        background-size: auto; 
-
+        background-color: #f0f0f0; 
+        background-image: none;
         color: #1a1a1a;
         min-height: 100vh;
         display: flex; 
@@ -69,10 +60,10 @@
     }
     
     /* ------------------------------------------------ */
-    /* START PAGE WRAPPER (This gets the Tree BG) */
+    /* START PAGE WRAPPER (Tree BG and FADE effect) */
     /* ------------------------------------------------ */
     #startPageWrapper {
-        display: flex; /* Will contain the popup */
+        display: flex; 
         justify-content: center;
         align-items: center;
         width: 100vw;
@@ -80,24 +71,25 @@
         position: fixed;
         top: 0;
         left: 0;
+        z-index: 100; 
         
-        /* NEW: APPLY TREE BACKGROUND HERE */
         background-color: #1a0814; 
         background-image: url('start_bg.jpg'); 
         background-position: center bottom; 
         background-repeat: no-repeat;
-        background-size: cover; /* CRITICAL FIX: Ensures full screen coverage */
+        background-size: cover; 
+        transition: opacity 1s ease-out; 
     }
 
     /* ------------------------------------------------ */
     /* INITIAL POPUP (The White Card) */
     /* ------------------------------------------------ */
     #initialPopup {
-        background: rgba(255, 255, 255, 0.95); /* Semi-transparent white card */
+        background: rgba(255, 255, 255, 0.95); 
         padding: 50px 30px; 
         border-radius: 15px;
         border: 2px solid #b57a9f; 
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow to pop */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
         max-width: 90%;
         width: 350px; 
         font-family: 'Poppins', sans-serif; 
@@ -118,14 +110,8 @@
         margin-top: 5px;
         margin-bottom: 15px;
     }
-    #initialPopup p {
-        font-size: 1em;
-        color: #555;
-        margin-top: 15px;
-        margin-bottom: 30px;
-    }
     #startButton {
-        background-color: #b57a9f; /* Match slide button color */
+        background-color: #b57a9f; 
         color: white;
         border: none;
         border-radius: 8px;
@@ -134,9 +120,6 @@
         cursor: pointer;
         transition: background-color 0.3s, transform 0.2s;
         font-family: 'Poppins', sans-serif;
-    }
-    #startButton:active {
-        transform: scale(0.98);
     }
 
     /* ------------------------------------------------ */
@@ -153,7 +136,6 @@
         align-items: center;
     }
 
-    /* Outer wrapper for the content - Uses FLEXBOX for guaranteed side-by-side */
     .slide-content-wrapper {
         display: flex; 
         flex-direction: row;
@@ -173,9 +155,10 @@
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.6s; /* For the photo pop effect */
+        transform: rotateZ(-3deg); /* Default slight rotation */
     }
     
-    /* Image inside the wrapper */
     #slideImage {
         width: 150px; 
         height: 220px; 
@@ -185,7 +168,7 @@
         margin: 0; 
     }
 
-    /* Text box (The other frame) */
+    /* Text box */
     #slideText {
         width: 210px; 
         height: 230px; 
@@ -198,4 +181,92 @@
         background: white; 
         border: 1px solid #ddd;
         border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.   
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* NEW: Typing Effect styling */
+    #slideText span {
+        transition: color 0.1s;
+    }
+    
+    /* Next Button Styling */
+    #nextSlideButton {
+        background-color: #b57a9f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 30px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.2s ease-out; 
+        margin-top: 20px;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5);
+    }
+
+    /* NEW: Button Hover Effect */
+    #nextSlideButton:hover {
+        background-color: #a46a94; /* Slightly darker */
+        box-shadow: 0 0 15px rgba(255, 192, 203, 0.8), 0 0 10px rgba(0, 0, 0, 0.1); /* Pink glow */
+        transform: scale(1.02);
+    }
+
+    /* Final Slide Styles (Text-Only) */
+    .final-slide-text {
+        width: 95% !important; 
+        height: 80vh !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        color: white !important;
+        text-align: center !important;
+        padding: 20px !important;
+        overflow-y: scroll !important;
+        box-shadow: none !important;
+        font-size: 1.2em !important;
+    }
+</style>
+</head>
+<body>
+    <audio id="backgroundMusic" preload="auto" loop></audio>
+
+    <div class="container">
+        <div id="startPageWrapper">
+            <div class="falling-petal" style="left: 5%; animation-delay: 0s;">🌸</div>
+            <div class="falling-petal" style="left: 15%; animation-delay: 2s;">🌸</div>
+            <div class="falling-petal" style="left: 25%; animation-delay: 4s;">🌸</div>
+            <div class="falling-petal" style="left: 35%; animation-delay: 6s; font-size: 1.8em;">🌸</div>
+            <div class="falling-petal" style="left: 45%; animation-delay: 8s; font-size: 1.2em;">🌸</div>
+    
+            <div id="initialPopup">
+                <h1>Happy Birthday</h1>
+                <h2>My Dearest Sister...</h2>
+                <p>Please turn up your volume and click 'Start' to begin your special story.</p>
+                <button id="startButton">Open Your Gift! 💖</button>
+            </div>
+        </div>
+        
+        <div id="finalHeartRain" style="display:none;">
+            <div class="falling-heart-final" style="left: 10%; animation-delay: 0s;">🤍</div>
+            <div class="falling-heart-final" style="left: 30%; animation-delay: 1s;">🤍</div>
+            <div class="falling-heart-final" style="left: 50%; animation-delay: 2s;">🤍</div>
+            <div class="falling-heart-final" style="left: 70%; animation-delay: 3s;">🤍</div>
+            <div class="falling-heart-final" style="left: 90%; animation-delay: 4s;">🤍</div>
+            <div class="falling-heart-final" style="left: 20%; animation-delay: 5s;">🤍</div>
+            <div class="falling-heart-final" style="left: 40%; animation-delay: 6s;">🤍</div>
+            <div class="falling-heart-final" style="left: 60%; animation-delay: 7s;">🤍</div>
+            <div class="falling-heart-final" style="left: 80%; animation-delay: 8s;">🤍</div>
+        </div>
+
+        <div id="storySlide">
+            <div class="slide-content-wrapper">
+                <div id="slideImageWrapper">
+                    <img id="slideImage" src="" alt="A memory photo">
+                </div>
+                
+                <p id="slideText"></p>
+            </div>
+            <button id="nextSlideButton">Next Memory</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>    
