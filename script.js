@@ -124,6 +124,10 @@ function displaySlide(index) {
         slideText.style.height = '70vh'; 
         slideText.style.overflowY = 'scroll'; 
         slideText.style.textAlign = 'center';
+        slideText.style.position = 'relative'; // Reset position for full screen text
+        slideText.style.top = '0';
+        slideText.style.right = '0';
+
 
     } else {
         // Color Change for all other slides
@@ -135,16 +139,21 @@ function displaySlide(index) {
         slideText.style.fontSize = '1em';
         
         const wrapper = document.querySelector('.slide-content-wrapper');
-        wrapper.style.display = 'flex'; 
-        slideText.style.width = '200px'; 
-        slideText.style.height = '390px'; 
+        wrapper.style.display = 'block'; 
+        slideImage.style.display = 'block';
+
+        // Set the size/positioning back for the regular slides (from index.html CSS)
+        slideText.style.width = '210px'; 
+        slideText.style.height = '220px'; 
         slideText.style.overflowY = 'auto'; 
         slideText.style.textAlign = 'left';
+        slideText.style.position = 'absolute'; 
+        slideText.style.top = '20px';
+        slideText.style.right = '0';
     }
 
     // 1. Handle Image Display (Standard Slides)
     if (slide.image) {
-        slideImage.style.display = 'block';
         slideImage.src = slide.image;
     } 
 
@@ -197,3 +206,6 @@ nextSlideButton.addEventListener('click', () => {
         displaySlide(currentSlideIndex);
     }
 });
+
+// Final code to force cache refresh
+console.log("Website Version: 20251003.8");
