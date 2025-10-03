@@ -7,6 +7,8 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap">
+    
+    <link rel="stylesheet" href="petals.css"> 
 
 <style>
     /* ------------------------------------------------ */
@@ -32,20 +34,23 @@
     }
 
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (Visible Texture + Color Animation) */
+    /* GENERAL BODY & BACKGROUND - (Dark Background + Tree Image) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
         text-align: center; 
         margin: 0;
-        /* Subtle repeating pattern for elegance (OPACITY IS 0.6 FOR VISIBILITY) */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Cg opacity='0.6'%3E%3Cpath fill='%23ffffff' d='M0 0h100v100H0z'/%3E%3Ccircle cx='10' cy='10' r='10' fill='%23f0f0f0'/%3E%3Cpath fill='%23f0f0f0' d='M20 0h60v20H20z'/%3E%3Cpath fill='%23f0f0f0' d='M0 20v60h20V20z'/%3E%3C/g%3E%3C/svg%3E");
-        background-repeat: repeat;
-        background-size: 80px 80px; 
-        background-attachment: fixed;
+        
+        /* NEW DARK BACKGROUND */
+        background-color: #1a0814; /* Deep Burgundy/Dark background */
+        background-image: url('start_bg.jpg'); /* The tree image you must upload */
+        background-position: left bottom; /* Pushes the tree to the bottom left */
+        background-repeat: no-repeat;
+        background-size: contain; /* Ensures image fits on small screens */
+
         color: #1a1a1a;
         min-height: 100vh;
-        display: flex; /* Centers everything */
+        display: flex; 
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -67,22 +72,22 @@
     /* INITIAL POPUP (START SCREEN) - NEW ELEGANT STYLE */
     /* ------------------------------------------------ */
     #initialPopup {
-        background: #fdf5f8; 
-        padding: 50px 30px; /* More vertical padding */
+        background: rgba(255, 255, 255, 0.95); /* Semi-transparent white card */
+        padding: 50px 30px; 
         border-radius: 15px;
-        border: 4px solid #b57a9f; /* Elegant border */
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        border: 2px solid #b57a9f; 
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow to pop */
         max-width: 90%;
-        width: 350px; /* Fixed width for card look */
+        width: 350px; 
         font-family: 'Poppins', sans-serif; 
         margin: auto; 
     }
     #initialPopup h1 {
-        font-family: 'Dancing Script', cursive; /* Elegant Script Font */
+        font-family: 'Dancing Script', cursive; 
         font-size: 2.8em;
-        color: #d881ab; /* Pink Heading Color */
+        color: #d881ab; 
         margin-bottom: 5px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     }
     #initialPopup h2 {
         font-family: 'Poppins', sans-serif;
@@ -208,6 +213,12 @@
     <audio id="backgroundMusic" preload="auto" loop></audio>
 
     <div class="container">
+        <div class="falling-heart" style="left: 10%; animation-delay: 0s;">💖</div>
+        <div class="falling-heart" style="left: 30%; animation-delay: 2s; font-size: 1em;">💖</div>
+        <div class="falling-heart" style="left: 50%; animation-delay: 4s;">💖</div>
+        <div class="falling-heart" style="left: 70%; animation-delay: 6s; font-size: 1.2em;">💖</div>
+        <div class="falling-heart" style="left: 90%; animation-delay: 8s; font-size: 0.8em;">💖</div>
+
         <div id="initialPopup">
             <h1>Happy Birthday</h1>
             <h2>My Dearest Sister...</h2>
