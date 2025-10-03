@@ -1,0 +1,21 @@
+/* ------------------------------------------------ */
+/* HEART PETAL ANIMATION CSS */
+/* ------------------------------------------------ */
+.falling-heart {
+    position: fixed;
+    top: -10%;
+    transform: rotateZ(30deg); /* Start slightly angled */
+    color: #ffc0cb; /* Light Pink Heart */
+    font-size: 1.5em; /* Size of the heart */
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: 99; /* Always on top */
+    animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+    to {
+        top: 100%;
+        transform: rotateZ(30deg) translateX(50px); /* Drift slightly right as it falls */
+        opacity: 0.1; /* Fades out slightly at the bottom */
+    }
+}
