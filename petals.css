@@ -1,13 +1,11 @@
 /* ------------------------------------------------ */
-/* PETAL EMOJI ANIMATION CSS */
+/* PETAL EMOJI ANIMATION CSS (Start Screen) */
 /* ------------------------------------------------ */
 .falling-petal { 
     position: fixed;
     top: 5%; 
     
-    /* Removed image background properties */
-    
-    /* Make the emoji look soft and pink */
+    /* Make the emoji look soft and pink, like a petal */
     color: #ffc0cb; /* Sets the base color */
     filter: drop-shadow(0 0 5px rgba(255, 192, 203, 0.8)); /* Soft pink glow/shadow */
 
@@ -19,10 +17,32 @@
     animation: fall 10s linear infinite;
 }
 
+/* ------------------------------------------------ */
+/* WHITE HEART RAIN ANIMATION (Final Slide) */
+/* ------------------------------------------------ */
+.falling-heart-final {
+    position: fixed;
+    top: -10%;
+    color: white; /* White for the dark background */
+    font-size: 1.2em;
+    pointer-events: none;
+    z-index: 98; /* Below the main popup */
+    /* Faster and more straight fall */
+    animation: fall-final 6s linear infinite; 
+}
+
 @keyframes fall {
     to {
         top: 100%;
         transform: rotateZ(30deg) translateX(50px); 
         opacity: 0.1; 
+    }
+}
+
+@keyframes fall-final {
+    to {
+        top: 100%;
+        transform: rotateZ(0deg) translateX(0px);
+        opacity: 0;
     }
 }
