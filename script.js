@@ -69,7 +69,7 @@ let isTyping = false;
 
 
 // -----------------------------------------------------------
-// A. TYPING EFFECT FUNCTION
+// A. TYPING EFFECT FUNCTION (Speed increased to 20ms)
 // -----------------------------------------------------------
 function typeWriter(text, i, element, callback) {
     if (i < text.length) {
@@ -80,7 +80,7 @@ function typeWriter(text, i, element, callback) {
         
         setTimeout(() => {
             typeWriter(text, i + 1, element, callback);
-        }, 30); 
+        }, 20); // <-- FASTER TYPING SPEED
     } else {
         isTyping = false;
         if (callback) callback();
@@ -98,13 +98,21 @@ function changeBodyColor() {
 
 
 // -----------------------------------------------------------
-// C. DISPLAY SLIDE FUNCTION
+// C. DISPLAY SLIDE FUNCTION (Triggers the POP Animation)
 // -----------------------------------------------------------
 function displaySlide(index) {
     const slide = slideData[index];
     slideText.innerHTML = ''; 
     const isLastSlide = index === slideData.length - 1;
     const wrapper = document.querySelector('.slide-content-wrapper');
+
+    // *** NEW: Add the pop effect class to the container ***
+    container.classList.add('pop-effect');
+    
+    // Remove the class immediately after the animation completes (0.3s)
+    setTimeout(() => {
+        container.classList.remove('pop-effect');
+    }, 300); 
 
     // --- LAST SLIDE (Full-screen apology) ---
     if (isLastSlide) {
