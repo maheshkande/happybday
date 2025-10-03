@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (Full-screen Color Change & Image) */
+    /* GENERAL BODY & BACKGROUND - (These styles are forced and should work) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
@@ -28,7 +28,6 @@
         transition: background-color 0.8s ease; /* Smooth transition for color change */
     }
     .container { 
-        /* Ensure the container is exactly the size of the screen and centered */
         display: flex; 
         flex-direction: column;
         justify-content: center; 
@@ -64,7 +63,7 @@
     }
 
     /* ------------------------------------------------ */
-    /* SLIDE CONTENT - The FINAL Layout Fixes using Absolute Positioning */
+    /* SLIDE CONTENT - ONLY the necessary CSS left here */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; 
@@ -88,40 +87,6 @@
         height: 480px; 
         margin-bottom: 20px;
     }
-
-    /* Style for the actual photo frame (left side) */
-    #slideImage {
-        width: 150px; 
-        height: 220px; 
-        object-fit: cover;
-        border: 4px solid #b57a9f; 
-        border-radius: 4px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        margin: 0; 
-        /* FINAL Positioning: Moves image into the upper-left frame */
-        position: absolute;
-        top: 20px; 
-        left: 0; 
-    }
-
-    /* Style for the text box (right side) */
-    #slideText {
-        width: 210px; 
-        height: 220px; /* Reduced height to fit into the upper-right frame */
-        white-space: pre-wrap;
-        font-size: 1em; 
-        color: #333;
-        padding: 10px;
-        overflow-y: auto; 
-        text-align: left;
-        background: rgba(255, 255, 255, 0.7); 
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        /* FINAL Positioning: Moves text into the upper-right frame */
-        position: absolute;
-        top: 20px; 
-        right: 0; 
-    }
     
     #nextSlideButton {
         background-color: #b57a9f;
@@ -139,9 +104,6 @@
         transform: translateX(-50%);
         z-index: 10;
     }
-    #nextSlideButton:hover {
-        background-color: #a46d8e;
-    }
 </style>
 </head>
 <body>
@@ -156,8 +118,12 @@
 
         <div id="storySlide">
             <div class="slide-content-wrapper">
-                <img id="slideImage" src="" alt="A memory photo">
-                <p id="slideText"></p>
+                <img id="slideImage" src="" alt="A memory photo" 
+                     style="width: 150px; height: 220px; object-fit: cover; border: 4px solid #b57a9f; border-radius: 4px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: absolute; top: 20px; left: 0;">
+                
+                <p id="slideText" 
+                   style="width: 210px; height: 220px; white-space: pre-wrap; font-size: 1em; color: #333; padding: 10px; overflow-y: auto; text-align: left; background: rgba(255, 255, 255, 0.7); border: 1px solid #ddd; border-radius: 5px; position: absolute; top: 20px; right: 0;">
+                </p>
             </div>
             <button id="nextSlideButton">Next Memory</button>
         </div>
@@ -165,4 +131,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+</html>  
