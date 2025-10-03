@@ -1,4 +1,4 @@
-// --- Elements ---
+/// --- Elements ---
 const musicElement = document.getElementById('backgroundMusic'); 
 const initialPopup = document.getElementById('initialPopup');
 const startButton = document.getElementById('startButton');
@@ -9,6 +9,7 @@ const slideText = document.getElementById('slideText');
 const nextSlideButton = document.getElementById('nextSlideButton');
 const container = document.querySelector('.container'); 
 const body = document.querySelector('body'); 
+const slideImageWrapper = document.getElementById('slideImageWrapper');
 
 // --- Color Palette for Transitions ---
 const colorPalette = [
@@ -21,7 +22,7 @@ const colorPalette = [
     '#bdb76b'  // Dark Khaki (subtle yellow)
 ];
 
-// --- Story Data ---
+// --- Story Data (Your content, exactly as written) ---
 const slideData = [
     {
         image: 'Snapchat-1145838159.jpg', 
@@ -87,13 +88,11 @@ function typeWriter(text, i, element, callback) {
 }
 
 // -----------------------------------------------------------
-// B. COLOR CHANGER FUNCTION
+// B. COLOR CHANGER FUNCTION (Changes the BODY background)
 // -----------------------------------------------------------
 function changeBodyColor() {
     const randomIndex = Math.floor(Math.random() * colorPalette.length);
     const newColor = colorPalette[randomIndex];
-    
-    // Smoothly transition the body's background color
     body.style.backgroundColor = newColor;
 }
 
@@ -105,64 +104,46 @@ function displaySlide(index) {
     const slide = slideData[index];
     slideText.innerHTML = ''; 
     const isLastSlide = index === slideData.length - 1;
+    const wrapper = document.querySelector('.slide-content-wrapper');
 
-    // --- CRITICAL FIX: LAST SLIDE & COLOR CHANGE STYLE ---
+    // --- LAST SLIDE (Full-screen apology) ---
     if (isLastSlide) {
-        // Black background for the final slide
-        container.style.backgroundColor = 'rgba(0, 0, 0, 0.95)'; 
         body.style.backgroundColor = 'black'; 
-        slideText.style.color = 'white';
-        slideText.style.fontSize = '1.2em';
         
-        // Hide the picture wrapper and center the text
-        const wrapper = document.querySelector('.slide-content-wrapper');
+        // Hide image wrapper
+        slideImageWrapper.style.display = 'none'; 
+        
+        // Make wrapper display block (not flex) and center the text container
         wrapper.style.display = 'block'; 
-        slideImage.style.display = 'none';
+        wrapper.style.textAlign = 'center'; 
+        wrapper.style.height = 'auto'; // Auto height for scrolling text
+
+        // Apply final slide styles defined in CSS
+        slideText.classList.add('final-slide-text');
         
-        // FIX: Makes the final apology text box tall and scrollable
-        slideText.style.width = '90%'; 
-        slideText.style.height = '70vh'; 
-        slideText.style.overflowY = 'scroll'; 
-        slideText.style.textAlign = 'center';
-        slideText.style.position = 'relative'; // Reset position for full screen text
-        slideText.style.top = '0';
-        slideText.style.right = '0';
-
-
     } else {
-        // Color Change for all other slides
+        // --- STANDARD SLIDES (Side-by-side) ---
         changeBodyColor(); 
         
-        // Reset styles for regular slides
-        container.style.backgroundColor = 'rgba(255, 255, 255, 0.85)'; 
-        slideText.style.color = '#333';
-        slideText.style.fontSize = '1em';
+        // Show image wrapper
+        slideImageWrapper.style.display = 'block'; 
         
-        const wrapper = document.querySelector('.slide-content-wrapper');
-        wrapper.style.display = 'block'; 
-        slideImage.style.display = 'block';
+        // Make wrapper display flex (side-by-side)
+        wrapper.style.display = 'flex'; 
+        wrapper.style.textAlign = 'left';
+        wrapper.style.height = '250px'; // Reset height for standard layout
 
-        // Set the size/positioning back for the regular slides (from index.html CSS)
-        slideText.style.width = '210px'; 
-        slideText.style.height = '220px'; 
-        slideText.style.overflowY = 'auto'; 
-        slideText.style.textAlign = 'left';
-        slideText.style.position = 'absolute'; 
-        slideText.style.top = '20px';
-        slideText.style.right = '0';
+        // Remove final slide styles
+        slideText.classList.remove('final-slide-text');
     }
 
-    // 1. Handle Image Display (Standard Slides)
+    // 1. Handle Image Display
     if (slide.image) {
         slideImage.src = slide.image;
     } 
 
     // 2. Set Button Text
-    if (isLastSlide) {
-        nextSlideButton.innerText = 'Finished (Click to Re-read)'; 
-    } else {
-        nextSlideButton.innerText = 'Next Memory';
-    }
+    nextSlideButton.innerText = isLastSlide ? 'Finished (Click to Re-read)' : 'Next Memory'; 
 
     // 3. Start Typing
     typeWriter(slide.text, 0, slideText, () => {
@@ -200,12 +181,8 @@ nextSlideButton.addEventListener('click', () => {
         currentSlideIndex++;
         displaySlide(currentSlideIndex);
     } else {
-        // FIX: Play music when looping back to the first slide
         musicElement.play();
         currentSlideIndex = 0;
         displaySlide(currentSlideIndex);
     }
 });
-
-// Final code to force cache refresh
-console.log("Website Version: 20251003.8");
