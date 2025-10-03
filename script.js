@@ -1,4 +1,4 @@
-    // --- Elements ---
+// --- Elements ---
 const musicElement = document.getElementById('backgroundMusic'); 
 const initialPopup = document.getElementById('initialPopup');
 const startButton = document.getElementById('startButton');
