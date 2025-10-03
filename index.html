@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,25 +10,35 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* NEW: Pop/Flash Animation CSS */
+    /* NEW: Sparkle/Confetti Animation CSS for the Button */
     /* ------------------------------------------------ */
-    @keyframes pop-flash {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.02); opacity: 0.9; box-shadow: 0 0 30px rgba(255, 255, 255, 0.8); }
-        100% { transform: scale(1); opacity: 1; }
+    @keyframes sparkle-glow {
+        0% {
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5);
+            transform: scale(1);
+        }
+        50% {
+            /* Makes the button briefly "pop" and adds intense, colorful glow */
+            box-shadow: 0 0 15px #fff, 0 0 30px #d881ab, 0 0 45px #ffc0cb;
+            transform: scale(1.05);
+        }
+        100% {
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5);
+            transform: scale(1);
+        }
     }
-    .pop-effect {
-        animation: pop-flash 0.3s ease-in-out;
+    .sparkle-effect {
+        animation: sparkle-glow 0.4s ease-out; /* Animation runs for 0.4 seconds */
     }
 
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (Elegant Texture + Color Animation) */
+    /* GENERAL BODY & BACKGROUND - (Visible Texture + Color Animation) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
         text-align: center; 
         margin: 0;
-        /* Subtle repeating pattern for elegance (VISIBILITY INCREASED) */
+        /* Subtle repeating pattern for elegance (OPACITY IS 0.6 FOR VISIBILITY) */
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Cg opacity='0.6'%3E%3Cpath fill='%23ffffff' d='M0 0h100v100H0z'/%3E%3Ccircle cx='10' cy='10' r='10' fill='%23f0f0f0'/%3E%3Cpath fill='%23f0f0f0' d='M20 0h60v20H20z'/%3E%3Cpath fill='%23f0f0f0' d='M0 20v60h20V20z'/%3E%3C/g%3E%3C/svg%3E");
         background-repeat: repeat;
         background-size: 80px 80px; 
@@ -110,83 +120,4 @@
         border: 1px solid #ddd;
         border-radius: 5px;
         padding: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    /* Image inside the wrapper */
-    #slideImage {
-        width: 150px; 
-        height: 220px; 
-        object-fit: cover;
-        border: 4px solid #b57a9f; 
-        border-radius: 4px;
-        margin: 0; 
-    }
-
-    /* Text box (The other frame) */
-    #slideText {
-        width: 210px; 
-        height: 230px; 
-        white-space: pre-wrap;
-        font-size: 1em; 
-        color: #333;
-        padding: 10px;
-        overflow-y: auto; 
-        text-align: left;
-        background: white; 
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    #nextSlideButton {
-        background-color: #b57a9f;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 12px 30px;
-        font-size: 1.1em;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 20px;
-    }
-
-    /* Final Slide Styles (Text-Only) */
-    .final-slide-text {
-        width: 95% !important; 
-        height: 80vh !important;
-        background: rgba(0, 0, 0, 0.9) !important;
-        color: white !important;
-        text-align: center !important;
-        padding: 20px !important;
-        overflow-y: scroll !important;
-        box-shadow: none !important;
-        font-size: 1.2em !important;
-    }
-</style>
-</head>
-<body>
-    <audio id="backgroundMusic" preload="auto" loop></audio>
-
-    <div class="container">
-        <div id="initialPopup">
-            <h1>A Special Gift Awaits You...</h1>
-            <p>Please turn up your volume and click 'Start' to begin your birthday story.</p>
-            <button id="startButton">Open Your Birthday Story! 💖</button>
-        </div>
-
-        <div id="storySlide">
-            <div class="slide-content-wrapper">
-                <div id="slideImageWrapper">
-                    <img id="slideImage" src="" alt="A memory photo">
-                </div>
-                
-                <p id="slideText"></p>
-            </div>
-            <button id="nextSlideButton">Next Memory</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        box-shadow: 0 4px 8              
