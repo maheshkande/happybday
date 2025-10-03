@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,32 +10,32 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (Adding a subtle, non-conflicting pattern) */
+    /* GENERAL BODY & BACKGROUND - (Clean, Color-Controlled) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
         text-align: center; 
         margin: 0;
-        /* NEW: Subtle repeating pattern to restore the elegant look without breaking the layout */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Cg opacity='0.5'%3E%3Cpath fill='%23ffffff' d='M0 0h100v100H0z'/%3E%3Ccircle cx='10' cy='10' r='10' fill='%23e0e0e0'/%3E%3Cpath fill='%23e0e0e0' d='M20 0h60v20H20z'/%3E%3Cpath fill='%23e0e0e0' d='M0 20v60h20V20z'/%3E%3C/g%3E%3C/svg%3E");
-        background-repeat: repeat;
-        background-size: 80px 80px; 
-        background-attachment: fixed;
+        /* The background color is animated by script.js */
+        background-color: white; 
         color: #1a1a1a;
         min-height: 100vh;
-        display: block; 
-        overflow-y: auto; 
-        transition: background-color 0.8s ease; /* Smooth transition for color change */
+        display: flex; /* Use flex to center the content vertically and horizontally */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden; 
+        transition: background-color 0.8s ease; 
     }
     .container { 
         display: flex; 
         flex-direction: column;
         justify-content: center; 
         align-items: center; 
-        min-height: 100vh;
         width: 100%;
+        max-width: 420px; /* Max width for mobile display */
         padding: 0; 
-        background: transparent; 
+        min-height: 100vh;
     }
     
     /* ------------------------------------------------ */
@@ -63,7 +63,7 @@
     }
 
     /* ------------------------------------------------ */
-    /* SLIDE CONTENT - FIXED STRUCTURE */
+    /* SLIDE CONTENT - GUARANTEED SIDE-BY-SIDE LAYOUT */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; 
@@ -71,25 +71,23 @@
         width: 380px; 
         height: 85vh; 
         padding: 10px;
-        line-height: 1.6;
         flex-direction: column; 
         justify-content: center;
         align-items: center;
-        transition: opacity 1s ease-in-out;
     }
 
-    /* Outer wrapper for the content */
+    /* Outer wrapper for the content - Uses FLEXBOX for guaranteed side-by-side */
     .slide-content-wrapper {
-        display: flex;
+        display: flex; /* CRITICAL FIX */
         flex-direction: row;
-        justify-content: space-between; 
+        justify-content: space-between; /* Pushes image left, text right */
         align-items: flex-start;
         width: 100%;
-        height: 480px; 
+        height: 250px; /* Fixed height for the content boxes */
         margin-bottom: 20px;
     }
 
-    /* Image wrapper (the frame) */
+    /* Image wrapper (The white frame) */
     #slideImageWrapper {
         width: 160px;
         height: 230px;
@@ -110,7 +108,7 @@
         margin: 0; 
     }
 
-    /* Text box (the other frame) */
+    /* Text box (The other frame) */
     #slideText {
         width: 210px; 
         height: 230px; 
@@ -136,6 +134,19 @@
         cursor: pointer;
         transition: background-color 0.3s;
         margin-top: 20px;
+    }
+
+    /* Final Slide Styles (Text-Only) */
+    .final-slide-text {
+        width: 95%; /* Full width */
+        height: 80vh; /* Full height */
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        overflow-y: scroll;
+        box-shadow: none;
+        font-size: 1.2em !important;
     }
 </style>
 </head>
