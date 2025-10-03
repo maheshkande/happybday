@@ -3,6 +3,8 @@ const musicElement = document.getElementById('backgroundMusic');
 const initialPopup = document.getElementById('initialPopup');
 const startButton = document.getElementById('startButton');
 
+const startPageWrapper = document.getElementById('startPageWrapper'); // CRITICAL: DEFINES THE START SCREEN WRAPPER
+
 const storySlide = document.getElementById('storySlide');
 const slideImage = document.getElementById('slideImage');
 const slideText = document.getElementById('slideText');
@@ -173,8 +175,8 @@ startButton.addEventListener('click', () => {
         console.log('Music playback failed, continuing story.');
     });
 
-    // Hide the initial popup and show the story container
-    initialPopup.style.display = 'none';
+    // Hide the entire start page wrapper and show the story container
+    startPageWrapper.style.display = 'none'; // CRITICAL: HIDES THE TREE/PETALS SCREEN
     storySlide.style.display = 'flex';
 
     // Start the very first slide
