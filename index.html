@@ -10,7 +10,7 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND */
+    /* GENERAL BODY & BACKGROUND - (This is for the full-screen color change) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
@@ -28,7 +28,7 @@
         transition: background-color 0.8s ease; /* Smooth transition for color change */
     }
     .container { 
-        /* FINAL LAYOUT FIX: Sets a centered, fixed container over the background image */
+        /* Ensure the container is exactly the size of the screen and centered */
         display: flex; 
         flex-direction: column;
         justify-content: center; 
@@ -36,8 +36,7 @@
         min-height: 100vh;
         width: 100%;
         padding: 0; 
-        /* Light overlay to make content readable */
-        background: rgba(255, 255, 255, 0.85); 
+        background: rgba(255, 255, 255, 0.85); /* The white overlay for readability */
     }
     
     /* ------------------------------------------------ */
@@ -50,7 +49,7 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         max-width: 90%;
         font-family: 'Dancing Script', cursive; 
-        margin: auto; /* Center the popup vertically and horizontally */
+        margin: auto; 
     }
     #startButton {
         background-color: #d881ab; 
@@ -63,12 +62,9 @@
         transition: background-color 0.3s;
         font-family: 'Poppins', sans-serif;
     }
-    #startButton:hover {
-        background-color: #c9719a;
-    }
 
     /* ------------------------------------------------ */
-    /* SLIDE CONTENT - Fixes the layout to match the image */
+    /* SLIDE CONTENT - The FINAL Layout Fixes */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; 
@@ -84,18 +80,13 @@
         transition: opacity 1s ease-in-out;
     }
 
-    /* Outer wrapper for the content, matching the frame position */
+    /* Outer wrapper for the content - Crucial for absolute positioning */
     .slide-content-wrapper {
-        display: flex;
-        flex-direction: row;
-        /* Aligns content to the top left of the frames */
-        justify-content: space-between;
-        align-items: flex-start;
+        position: relative; /* Set context for absolute children */
+        display: block; /* Removed flex */
         width: 100%;
-        height: 400px;
+        height: 480px; /* Increased height to make sure all frames are covered */
         margin-bottom: 20px;
-        /* Added position relative to help align inner elements */
-        position: relative; 
     }
 
     /* Style for the actual photo frame (left side) */
@@ -107,16 +98,16 @@
         border-radius: 4px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         margin: 0; 
-        /* POSITIONING FIX: Moves image into the upper-left frame */
+        /* FINAL Positioning: Moves image into the upper-left frame */
         position: absolute;
-        top: 25px; 
-        left: 20px;
+        top: 20px; 
+        left: 0; /* Align to the very left of the container */
     }
 
     /* Style for the text box (right side) */
     #slideText {
         width: 210px; 
-        height: 390px; 
+        height: 220px; /* Reduced height to fit into the upper-right frame */
         white-space: pre-wrap;
         font-size: 1em; 
         color: #333;
@@ -126,10 +117,10 @@
         background: rgba(255, 255, 255, 0.7); 
         border: 1px solid #ddd;
         border-radius: 5px;
-        /* POSITIONING FIX: Moves text into the upper-right frame */
+        /* FINAL Positioning: Moves text into the upper-right frame */
         position: absolute;
-        top: 25px; 
-        right: 20px; 
+        top: 20px; 
+        right: 0; 
     }
     
     #nextSlideButton {
@@ -141,8 +132,11 @@
         font-size: 1.1em;
         cursor: pointer;
         transition: background-color 0.3s;
-        margin-top: 20px;
-        position: relative; /* Keep button below the main layout */
+        /* Positioning the button to be correctly under the frames */
+        position: absolute; 
+        bottom: 50px; 
+        left: 50%;
+        transform: translateX(-50%);
         z-index: 10;
     }
     #nextSlideButton:hover {
