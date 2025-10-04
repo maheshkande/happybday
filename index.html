@@ -1,219 +1,164 @@
-             <!DOCTYPE html>
+                     
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Dearest Sister</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+    <title>Happy Birthday, Sister!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap">
-    
-    <link rel="stylesheet" href="petals.css"> 
+    <style>
+        /* BASE & THEME */
+        :root {
+            --color-pink-soft: #f5c5b5; 
+            --color-green-soft: #b5f5c5; 
+            --color-purple-soft: #c5b5f5; 
+            --color-text-dark: #333;
+            --color-text-light: #fff;
+            --color-button: #a879a8;
+        }
 
-<style>
-    /* ------------------------------------------------ */
-    /* ANIMATIONS & UTILITIES */
-    /* ------------------------------------------------ */
-    @keyframes sparkle-glow {
-        0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
-        50% { box-shadow: 0 0 15px #fff, 0 0 30px #d881ab, 0 0 45px #ffc0cb; transform: scale(1.05); }
-        100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
-    }
-    .sparkle-effect { animation: sparkle-glow 0.4s ease-out; }
-    
-    .hidden-slide { display: none !important; opacity: 0 !important; pointer-events: none; }
-    
-    @keyframes heart-fall {
-        0% { transform: translateY(-100vh) rotateZ(0deg); opacity: 0; }
-        10% { opacity: 0.8; }
-        100% { transform: translateY(100vh) rotateZ(360deg); opacity: 0; }
-    }
-    #finalHeartRain {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 5;
-    }
-    .falling-heart-final {
-        position: absolute; top: 0; color: white; font-size: 1.5em; animation: heart-fall 10s linear infinite;
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0; 
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; 
+        }
 
+        /* START PAGE STYLING */
+        #startPageWrapper {
+            background-image: url('start_bg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            text-align: center;
+            position: fixed; 
+            top: 0;
+            left: 0;
+            z-index: 100; 
+            transition: opacity 1s ease-in-out;
+        }
 
-    /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND */
-    /* ------------------------------------------------ */
-    body { 
-        font-family: 'Poppins', sans-serif; text-align: center; margin: 0;
-        background-color: #f0f0f0; 
-        color: #1a1a1a; min-height: 100vh;
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        overflow-x: hidden; transition: background-color 0.8s ease; 
-    }
-    
-    /* Dot pattern class added by JS - APPLIED TO STORYSLIDE WRAPPER (See below) */
-    .dotted-background {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='0.5' fill='rgba(255, 255, 255, 0.5)'/%3E%3C/svg%3E");
-        background-size: 8px 8px; 
-        background-repeat: repeat;
-        /* CRITICAL FIX: The JS adds this class to the body, but it needs to be transparent to show the story slide's color */
-    }
+        .start-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+        }
 
-    /* ------------------------------------------------ */
-    /* START PAGE WRAPPER (Cherry Tree Background) */
-    /* ------------------------------------------------ */
-    #startPageWrapper {
-        display: flex; justify-content: center; align-items: center;
-        width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; 
-        z-index: 100; 
+        .start-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: #d164d1;
+            margin-bottom: 10px;
+        }
+
+        /* BUTTON STYLING */
+        .start-button, .slideshow-button {
+            background-color: var(--color-button);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            font-weight: 600;
+            margin-top: 15px; 
+        }
+
+        /* SLIDESHOW CORE STYLING */
+        #slideshowContainer {
+            display: none; 
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.8s;
+            overflow: hidden;
+            background-image: radial-gradient(var(--color-text-dark) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .slide-item {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide-item.active {
+            opacity: 1;
+        }
+
+        .image-wrapper {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 280px; 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transform: rotate(-3deg);
+            background-color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* TEXT BOX STYLING (The content) */
+        .slide-text-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto 30px auto;
+            width: 80%;
+            min-height: 80px; 
+            max-width: 400px;
+            text-align: center;
+            font-size: 1.1em;
+        }
         
-        background-color: #1a0814; 
-        background-image: url('start_bg.jpg'); 
-        background-position: center bottom; background-repeat: no-repeat;
-        background-size: cover; transition: opacity 1s ease-out; 
-    }
-
-    /* ------------------------------------------------ */
-    /* POPUP & BUTTON (Unchanged) */
-    /* ------------------------------------------------ */
-    #initialPopup {
-        background: rgba(255, 255, 255, 0.95); padding: 50px 30px; border-radius: 15px;
-        border: 2px solid #b57a9f; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
-        max-width: 90%; width: 350px; margin: auto; 
-    }
-    
-    #initialPopup button {
-        background-color: #b57a9f; color: white; border: none; border-radius: 8px;
-        padding: 15px 35px; font-size: 1.2em; cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s; font-family: 'Poppins', sans-serif;
-    }
-
-    /* ------------------------------------------------ */
-    /* STORY SLIDE CONTAINER (Stable Stacked Layout) */
-    /* ------------------------------------------------ */
-    #storySlide {
-        display: none; position: relative; 
-        max-width: 400px; 
-        width: 90%; 
-        padding: 20px 0; 
-        flex-direction: column; justify-content: center; align-items: center; 
-        z-index: 50; 
-        background-color: transparent; 
-        /* CRITICAL FIX: Ensure the story slide takes up the screen height to center content */
-        min-height: 100vh; 
-    }
-    
-    /* Forces content into a stable vertical stack */
-    .slide-content-wrapper {
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    /* Image wrapper (The white frame) - Hidden on final slide */
-    #slideImageWrapper {
-        width: 170px; 
-        height: 250px; 
-        background: white; 
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transform: rotateZ(-3deg); 
-        margin-bottom: 30px; 
-        flex-shrink: 0;
-    }
-    
-    /* Text box for Standard Slides */
-    #slideText {
-        width: 100%; 
-        min-height: 120px; 
-        max-height: 200px; 
-        background: white; 
-        color: black; 
-        padding: 20px; 
-        border-radius: 10px;
-        text-align: center; 
-        font-size: 1em;
-        line-height: 1.4;
-        box-sizing: border-box; 
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        margin-bottom: 0; 
-
-        /* Ensures text wraps and scrolling works for standard slides */
-        overflow-y: auto; 
-        overflow-x: hidden; 
-        white-space: normal !important; 
-        word-wrap: break-word; 
-    }
-
-    /* Final Slide Styles (THE CRITICAL FIX) */
-    .final-slide-text {
-        width: 100%; /* Take full width of parent container */
-        max-width: 450px;
+        /* Hide the content initially for typing animation */
+        .slide-text-content {
+            white-space: pre-wrap;
+            opacity: 0;
+            /* Added transition for smoother appearance if the typing fails */
+            transition: opacity 0.3s; 
+        }
         
-        /* New Scrollable Height */
-        min-height: 250px !important; /* Minimum height for large message */
-        max-height: 350px !important; /* Max height before scrolling starts */
-
-        color: white !important; 
-        background: rgba(255, 255, 255, 0.2) !important; 
-        border: 2px solid white;
-        text-align: center !important;
-        font-style: italic;
-        padding: 30px;
-        font-size: 1.1em;
-        line-height: 1.6; 
-        
-        /* Force scrolling for long final message */
-        overflow-y: auto !important; 
-        overflow-x: hidden !important;
-        white-space: normal !important;
-    }
-    
-    #nextSlideButton {
-        padding: 10px 30px; font-size: 1.1em;
-        margin-top: 25px; 
-        background-color: #b57a9f; color: white; border: none;
-        border-radius: 8px; cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
-    }
-
-</style>
-</head>
-<body>
-    <audio id="backgroundMusic" preload="auto" loop></audio>
-
-    <div id="startPageWrapper">
-        <div class="falling-petal" style="left: 5%; animation-delay: 0s;">🌸</div>
-        <div class="falling-petal" style="left: 15%; animation-delay: 2s;">🌸</div>
-        <div class="falling-petal" style="left: 25%; animation-delay: 4s;">🌸</div>
-
-        <div id="initialPopup">
-            <h1>Happy Birthday</h1>
-            <h2>My Dearest Sister...</h2>
-            <p>Please turn up your volume and click 'Start' to begin your special story.</p>
-            <button id="startButton">Open Your Gift! 💖</button>
-        </div>
-    </div>
-    
-    <div id="finalHeartRain" style="display:none;">
-        <div class="falling-heart-final" style="left: 10%; animation-delay: 0s;">🤍</div>
-        <div class="falling-heart-final" style="left: 30%; animation-delay: 1s;">🤍</div>
-        <div class="falling-heart-final" style="left: 50%; animation-delay: 2s;">🤍</div>
-        <div class="falling-heart-final" style="left: 70%; animation-delay: 3s;">🤍</div>
-        <div class="falling-heart-final" style="left: 90%; animation-delay: 4s;">🤍</div>
-    </div>
-
-    <div id="storySlide">
-        <div class="slide-content-wrapper">
-            <div id="slideImageWrapper">
-                <img id="slideImage" src="" alt="A memory photo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 3px;">
-            </div>
-            
-            <p id="slideText"></p>
-        </div>
-        <button id="nextSlideButton">Next Memory</button>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html> 
+        /* FINAL SLIDE */
+        #finalSlide {
+            background-color: black;
+            color: var(--color-text-light);
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9
