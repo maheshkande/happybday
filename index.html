@@ -1,4 +1,5 @@
-         <!DOCTYPE html>
+                 
+          <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +29,7 @@
     }
 
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (FINAL SUBTLE DOT PATTERN) */
+    /* GENERAL BODY & BACKGROUND - (SUBTLE DOT PATTERN) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
@@ -53,7 +54,7 @@
     }
     
     /* ------------------------------------------------ */
-    /* START PAGE WRAPPER (Your Beautiful Cherry Tree Image) */
+    /* START PAGE WRAPPER (Cherry Tree) */
     /* ------------------------------------------------ */
     #startPageWrapper {
         display: flex; 
@@ -74,9 +75,6 @@
         transition: opacity 1s ease-out; 
     }
 
-    /* ------------------------------------------------ */
-    /* INITIAL POPUP */
-    /* ------------------------------------------------ */
     #initialPopup {
         background: rgba(255, 255, 255, 0.95); 
         padding: 50px 30px; 
@@ -87,18 +85,18 @@
         width: 350px; 
         margin: auto; 
     }
-
+    
     /* ------------------------------------------------ */
-    /* STORY SLIDE CONTAINER (SIMPLIFIED & STACKING FIX) */
+    /* STORY SLIDE CONTAINER (CORE LAYOUT FIX: STACKED) */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; 
-        /* Use relative positioning within the centered body flex container for stability */
         position: relative; 
         
-        max-width: 420px; 
+        /* The container should be smaller to give breathing room */
+        max-width: 350px; 
         width: 90%; 
-        padding: 20px; /* Uniform padding */
+        padding: 20px; 
         
         flex-direction: column; 
         justify-content: center;
@@ -106,10 +104,10 @@
         z-index: 50; 
     }
 
-    /* CRITICAL: Simplified wrapper for mobile-first stacking */
+    /* FORCED STACKING LAYOUT */
     .slide-content-wrapper {
         display: flex; 
-        flex-direction: column; /* Always stack content */
+        flex-direction: column; /* FORCED STACKING: Image on top, Text below */
         align-items: center;
         width: 100%;
         margin-bottom: 20px;
@@ -117,7 +115,7 @@
 
     /* Image wrapper (The white frame) */
     #slideImageWrapper {
-        width: 170px; /* Consistent size */
+        width: 170px; 
         height: 240px;
         background: white; 
         border: 1px solid #ddd;
@@ -135,12 +133,13 @@
         color: black; 
         padding: 20px;
         border-radius: 10px;
-        text-align: center; /* Center text for stacking layout */
+        text-align: center; 
         font-size: 1em;
         line-height: 1.4;
         max-height: 250px; 
         overflow-y: auto; 
         width: 100%; /* Text box takes full container width */
+        box-sizing: border-box; /* IMPORTANT: Includes padding in width calculation */
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     
@@ -205,4 +204,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>      
+</html>  
