@@ -1,4 +1,4 @@
-           <!DOCTYPE html>
+          <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,21 +121,29 @@
     /* Text box is solid white for readability */
     #slideText {
         width: 100%; 
-        /* CRITICAL FIX: Increased padding and allowed for more height */
-        min-height: 120px; /* Taller minimum height to hold more text */
-        max-height: 200px; /* Allowed maximum height for scrolling */
+        min-height: 120px; 
+        max-height: 200px; 
         background: white; 
         color: black; 
-        padding: 20px; /* Increased padding around text */
+        padding: 20px; 
         border-radius: 10px;
         text-align: center; 
         font-size: 1em;
         line-height: 1.4;
-        overflow-y: auto; 
+        /* CRITICAL FIX: Ensure text is hidden until it's scrolled into view */
+        overflow: hidden; 
+        position: relative; /* Needed for reliable overflow */
         box-sizing: border-box; 
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         margin-bottom: 0; 
     }
+
+    /* The content being typed needs to scroll *within* the fixed box */
+    #slideText:not(.final-slide-text) {
+        overflow-y: auto; /* Enable scrolling for standard slides */
+        white-space: normal; /* Allow text to wrap */
+    }
+
     
     /* Final Slide Styles (Perfection) */
     .final-slide-text {
@@ -150,6 +158,7 @@
         max-height: none; 
         font-size: 1.1em;
         line-height: 1.6; 
+        overflow: visible; /* Final slide is designed to be fully visible */
     }
     
     #nextSlideButton {
@@ -199,4 +208,6 @@
 
     <script src="script.js"></script>
 </body>
-</html>         
+</html> 
+    
+    
