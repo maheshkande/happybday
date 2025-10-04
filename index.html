@@ -1,4 +1,5 @@
-           <!DOCTYPE html>
+               
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +13,7 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* ANIMATIONS & UTILITIES (Unchanged) */
+    /* ANIMATIONS & UTILITIES (Added final heart animation styles) */
     /* ------------------------------------------------ */
     @keyframes sparkle-glow {
         0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
@@ -26,6 +27,32 @@
         opacity: 0 !important;
         pointer-events: none; 
     }
+    
+    @keyframes heart-fall {
+        0% { transform: translateY(-100vh) rotateZ(0deg); opacity: 0; }
+        10% { opacity: 0.8; }
+        100% { transform: translateY(100vh) rotateZ(360deg); opacity: 0; }
+    }
+    
+    /* Style for the falling hearts on the final slide */
+    #finalHeartRain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 5;
+    }
+    .falling-heart-final {
+        position: absolute;
+        top: 0;
+        color: white; /* White hearts */
+        font-size: 1.5em;
+        animation: heart-fall 10s linear infinite;
+    }
+
 
     /* ------------------------------------------------ */
     /* GENERAL BODY & BACKGROUND - (SUBTLE DOT PATTERN) */
@@ -53,10 +80,32 @@
     }
     
     /* ------------------------------------------------ */
-    /* START BUTTON & POPUP (Fixed design) */
+    /* START PAGE WRAPPER (CHERRY TREE BACKGROUND RESTORED) */
+    /* ------------------------------------------------ */
+    #startPageWrapper {
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        position: fixed; 
+        top: 0;
+        left: 0;
+        z-index: 100; 
+        
+        background-color: #1a0814; 
+        /* CRITICAL FIX: Ensure background image path is correct */
+        background-image: url('start_bg.jpg'); 
+        background-position: center bottom; 
+        background-repeat: no-repeat;
+        background-size: cover; 
+        transition: opacity 1s ease-out; 
+    }
+
+    /* ------------------------------------------------ */
+    /* INITIAL POPUP & BUTTON (Fixed design) */
     /* ------------------------------------------------ */
     #initialPopup {
-        /* (Popup styles are restored from previous working versions) */
         background: rgba(255, 255, 255, 0.95); 
         padding: 50px 30px; 
         border-radius: 15px;
@@ -86,7 +135,6 @@
         display: none; 
         position: relative; 
         
-        /* Increased max-width to give room for side-by-side content */
         max-width: 480px; 
         width: 90%; 
         padding: 20px 10px; 
@@ -100,9 +148,9 @@
     /* CORE FIX: Uses flex-wrap to restore side-by-side but allows wrapping */
     .slide-content-wrapper {
         display: flex; 
-        flex-direction: row; /* Side-by-Side default */
-        flex-wrap: wrap; /* Allows text to drop below image on small screens */
-        justify-content: center; /* Center content when it wraps */
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        justify-content: center; 
         align-items: flex-start;
         width: 100%;
         margin-bottom: 20px;
@@ -124,9 +172,9 @@
     
     /* Text box is solid white for readability */
     #slideText {
-        flex-grow: 1; /* Allows text to take remaining space */
-        min-width: 200px; /* Ensures text box is wide enough to look good beside image */
-        max-width: 100%; /* Prevents horizontal overflow */
+        flex-grow: 1; 
+        min-width: 200px; 
+        max-width: 100%; 
         background: white; 
         color: black; 
         padding: 20px;
@@ -140,11 +188,11 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     
-    /* Final Slide Styles (Unchanged) */
+    /* Final Slide Styles */
     .final-slide-text {
-        color: black !important;
-        background: white !important;
-        border: 2px solid black;
+        color: white !important; /* CRITICAL FIX: Changed text color to white against black background */
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 2px solid white;
         text-align: center !important;
         font-style: italic;
         padding: 30px;
@@ -155,7 +203,6 @@
     #nextSlideButton {
         padding: 10px 30px; 
         font-size: 1.1em;
-        /* Increased margin to guarantee separation from text box */
         margin-top: 35px; 
         background-color: #b57a9f; 
         color: white;
@@ -190,6 +237,10 @@
     <audio id="backgroundMusic" preload="auto" loop></audio>
 
     <div id="startPageWrapper">
+        <div class="falling-petal" style="left: 5%; animation-delay: 0s;">🌸</div>
+        <div class="falling-petal" style="left: 15%; animation-delay: 2s;">🌸</div>
+        <div class="falling-petal" style="left: 25%; animation-delay: 4s;">🌸</div>
+
         <div id="initialPopup">
             <h1>Happy Birthday</h1>
             <h2>My Dearest Sister...</h2>
@@ -199,7 +250,12 @@
     </div>
     
     <div id="finalHeartRain" style="display:none;">
-        </div>
+        <div class="falling-heart-final" style="left: 10%; animation-delay: 0s;">🤍</div>
+        <div class="falling-heart-final" style="left: 30%; animation-delay: 1s;">🤍</div>
+        <div class="falling-heart-final" style="left: 50%; animation-delay: 2s;">🤍</div>
+        <div class="falling-heart-final" style="left: 70%; animation-delay: 3s;">🤍</div>
+        <div class="falling-heart-final" style="left: 90%; animation-delay: 4s;">🤍</div>
+    </div>
 
     <div id="storySlide">
         <div class="slide-content-wrapper">
@@ -214,5 +270,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>      
-                
+</html>
