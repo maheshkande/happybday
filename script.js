@@ -26,7 +26,6 @@ const colorPalette = [
 ];
 
 // --- Story Data (Your content) ---
-// SYNTAX CHECK: Ensure commas and quotes are perfect!
 const slideData = [
     {
         image: 'Snapchat-1145838159.jpg', 
@@ -61,7 +60,7 @@ const slideData = [
         text: "Happy Birthday to the sweetest sister in the world! 🎂✨ You are my biggest blessing, my endless joy, and the one I’ll love not just for today, but for forever — to infinity and beyond. May your heart always shine as bright as your smile.\" 💖\n\n\"Love you from the moon to the stars and beyond 🤗💕\""
     },
     {
-        // THIS IS the FINAL, TEXT-ONLY APOLOGY SLIDE
+        // FINAL, TEXT-ONLY APOLOGY SLIDE
         image: null, 
         text: "*\"This may be the last time I get to speak to you like this, and I want every word to matter.\n\nYou have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.\n\nI know now that I’m not the brother you wanted… not the one you deserve. You deserve someone who will always protect your smile, never hurt your heart, and never let you feel alone. I wasn’t that person, though I wished I could be.\n\nNo matter where life takes you from here, please remember: every moment, every memory, every bit of love you gave me will stay with me. Even if I’m no longer by your side, a part of me will always be carrying you in my heart. I’m sorry… for everything.\"🥺❤*"
     }
@@ -81,11 +80,9 @@ function typeWriter(text, i, element, callback) {
         
         const char = text.substring(i, i + 1);
         
-        // Wrap the new character in a span with a temporary pink glow style
         element.innerHTML = element.innerHTML.replace(/\n/g, '<br>') + 
             `<span style="color:#ffc0cb; transition:color 0.1s;">${char}</span>`;
         
-        // Remove the temporary glow style after a tiny delay
         setTimeout(() => {
             const spans = element.querySelectorAll('span');
             if (spans.length > 0) {
@@ -98,7 +95,6 @@ function typeWriter(text, i, element, callback) {
         }, 20); // Fast typing speed
     } else {
         isTyping = false;
-        // Clean up innerHTML after typing is complete
         element.innerHTML = text.replace(/\n/g, '<br>');
         if (callback) callback();
     }
@@ -124,13 +120,11 @@ function displaySlide(index) {
     const isLastSlide = index === slideData.length - 1;
     const wrapper = document.querySelector('.slide-content-wrapper');
 
-    // *** TRIGGER SPARKLE EFFECT ON THE BUTTON ***
     nextSlideButton.classList.add('sparkle-effect');
     setTimeout(() => {
         nextSlideButton.classList.remove('sparkle-effect');
     }, 400); 
 
-    // Reset the photo animation
     slideImageWrapper.classList.remove('photo-pop-effect');
     void slideImageWrapper.offsetWidth; 
 
@@ -138,37 +132,29 @@ function displaySlide(index) {
     if (isLastSlide) {
         body.style.backgroundColor = 'black'; 
         
-        // Hide image wrapper
         slideImageWrapper.style.display = 'none'; 
         
-        // Set wrapper styles for center alignment
         wrapper.style.display = 'block'; 
         wrapper.style.textAlign = 'center'; 
         wrapper.style.height = 'auto'; 
 
-        // Apply final slide styles defined in CSS
         slideText.classList.add('final-slide-text');
         
-        // Show the Final Heart Rain
         finalHeartRain.style.display = 'block';
         
     } else {
         // --- STANDARD SLIDES (Side-by-side) ---
         changeBodyColor(); 
         
-        // Hide the Final Heart Rain
         finalHeartRain.style.display = 'none';
         
-        // Show image wrapper
         slideImageWrapper.style.display = 'block'; 
-        slideImageWrapper.classList.add('photo-pop-effect'); // Triggers the photo pop animation
+        slideImageWrapper.classList.add('photo-pop-effect'); 
         
-        // Set wrapper styles for side-by-side
         wrapper.style.display = 'flex'; 
         wrapper.style.textAlign = 'left';
         wrapper.style.height = '250px'; 
 
-        // Remove final slide styles
         slideText.classList.remove('final-slide-text');
     }
 
@@ -195,18 +181,14 @@ function displaySlide(index) {
 function startTransition() {
     // CRITICAL SAFETY FIX: Small delay to ensure the browser finishes rendering
     setTimeout(() => {
-        // Step 1: Trigger the smooth fade out 
         startPageWrapper.style.opacity = '0';
 
-        // Step 2: After the fade-out duration (1000ms), hide it completely and show the story
         setTimeout(() => {
             // CRITICAL FIX: Add the new hidden class to remove it from the layout
             startPageWrapper.classList.add('hidden-slide'); 
             
-            // Show the story container
             storySlide.style.display = 'flex';
             
-            // Start the very first slide
             displaySlide(currentSlideIndex);
         }, 1000); 
     }, 10); // 10ms initial safety delay
@@ -215,17 +197,15 @@ function startTransition() {
 
 // 1. Initial Start Button Click (Gatekeeper)
 startButton.addEventListener('click', () => {
-    // START MUSIC SAFELY: Fixes the mobile hanging issue.
+    // FIX: Safely handles music playback promise for mobile compatibility
     musicElement.src = 'aud.mp3'; 
     musicElement.loop = true;
     
     musicElement.play()
         .then(() => {
-            // Music started successfully: Proceed with transition
             startTransition();
         })
         .catch(error => {
-            // Music blocked: Log error and FORCE transition
             console.log('Music playback blocked, forcing story transition.');
             startTransition();
         });
