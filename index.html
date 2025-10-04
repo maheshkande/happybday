@@ -1,4 +1,4 @@
-              <!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* ANIMATIONS & UTILITIES (Unchanged) */
+    /* ANIMATIONS & UTILITIES */
     /* ------------------------------------------------ */
     @keyframes sparkle-glow {
         0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
@@ -37,38 +37,38 @@
 
 
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (CLEAN BACKGROUND) */
+    /* GENERAL BODY & BACKGROUND */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; text-align: center; margin: 0;
-        background-color: #f0f0f0; /* Simple light gray background */
+        background-color: #f0f0f0; 
         color: #1a1a1a; min-height: 100vh;
         display: flex; flex-direction: column; justify-content: center; align-items: center;
         overflow-x: hidden; transition: background-color 0.8s ease; 
     }
     
-    /* Dot pattern class to be added dynamically by JS */
+    /* Dot pattern class added by JS */
     .dotted-background {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='0.5' fill='rgba(255, 255, 255, 0.5)'/%3E%3C/svg%3E");
         background-size: 8px 8px; background-repeat: repeat;
     }
 
     /* ------------------------------------------------ */
-    /* START PAGE WRAPPER (CHERRY TREE BACKGROUND) */
+    /* START PAGE WRAPPER (Cherry Tree Background) */
     /* ------------------------------------------------ */
     #startPageWrapper {
         display: flex; justify-content: center; align-items: center;
         width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; 
-        z-index: 100; /* CRITICAL: Must be on top of everything */
+        z-index: 100; 
         
-        background-color: #1a0814; /* Solid dark color behind the image */
+        background-color: #1a0814; 
         background-image: url('start_bg.jpg'); 
         background-position: center bottom; background-repeat: no-repeat;
         background-size: cover; transition: opacity 1s ease-out; 
     }
 
     /* ------------------------------------------------ */
-    /* INITIAL POPUP & BUTTON (Unchanged) */
+    /* POPUP & BUTTON (Unchanged) */
     /* ------------------------------------------------ */
     #initialPopup {
         background: rgba(255, 255, 255, 0.95); padding: 50px 30px; border-radius: 15px;
@@ -83,97 +83,83 @@
     }
 
     /* ------------------------------------------------ */
-    /* STORY SLIDE CONTAINER (Z-INDEX AND BACKGROUND FIX) */
+    /* STORY SLIDE CONTAINER (Stable Stacked Layout) */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; position: relative; 
-        
-        max-width: 550px; 
-        width: 95%; 
-        padding: 20px 10px; 
-        
+        max-width: 400px; 
+        width: 90%; 
+        padding: 20px 0; 
         flex-direction: column; justify-content: center; align-items: center; 
-        
-        z-index: 50; /* CRITICAL: Ensures slide is above the cherry tree background */
-        background-color: transparent; /* Changed to transparent, color set by JS on body */
+        z-index: 50; 
+        background-color: transparent; 
     }
     
-    /* CORE: Side-by-Side Flex Layout */
+    /* Forces content into a stable vertical stack */
     .slide-content-wrapper {
         display: flex; 
-        flex-direction: row; 
-        flex-wrap: wrap; 
-        justify-content: center; 
-        align-items: flex-start; 
+        flex-direction: column; 
+        align-items: center; 
         width: 100%;
         margin-bottom: 20px;
-        max-height: 300px;
     }
 
     /* Image wrapper (The white frame) */
     #slideImageWrapper {
-        width: 150px; 
-        height: 220px;
+        width: 170px; 
+        height: 250px; 
         background: white; 
         border: 1px solid #ddd;
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transform: rotateZ(-3deg); 
-        margin-right: 15px; 
+        margin-bottom: 30px; 
         flex-shrink: 0;
     }
     
     /* Text box is solid white for readability */
     #slideText {
-        flex-grow: 1; 
-        min-width: 250px; 
-        max-width: 100%; 
+        width: 100%; 
+        /* CRITICAL FIX: Increased max-height to ensure text doesn't run under the button */
+        min-height: 100px; /* Slightly taller minimum */
+        max-height: 180px; /* Allowed max height */
         background: white; 
         color: black; 
-        padding: 20px;
+        padding: 15px 20px;
         border-radius: 10px;
-        text-align: left; 
+        text-align: center; 
         font-size: 1em;
         line-height: 1.4;
-        max-height: 230px; 
-        overflow-y: auto; 
+        overflow-y: auto; /* Allows scrolling for longer messages */
         box-sizing: border-box; 
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0; 
     }
     
-    /* Final Slide Styles */
+    /* Final Slide Styles (Perfection) */
     .final-slide-text {
+        width: 90%; 
+        max-width: 450px;
         color: white !important; 
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.2) !important; 
         border: 2px solid white;
         text-align: center !important;
         font-style: italic;
         padding: 30px;
         max-height: none; 
         font-size: 1.1em;
+        line-height: 1.6; 
     }
     
     #nextSlideButton {
         padding: 10px 30px; font-size: 1.1em;
-        margin-top: 35px; 
+        margin-top: 25px; 
         background-color: #b57a9f; color: white; border: none;
         border-radius: 8px; cursor: pointer;
         transition: background-color 0.3s, transform 0.2s;
     }
 
-    /* Force Stacking on the Smallest Phones if content cannot fit side-by-side */
-    @media (max-width: 450px) {
-        #slideImageWrapper {
-            margin-right: 0;
-            margin-bottom: 25px;
-        }
-        #slideText {
-            width: 100%; 
-            min-width: unset; 
-            text-align: center; 
-        }
-    }
 </style>
 </head>
 <body>
@@ -213,5 +199,4 @@
 
     <script src="script.js"></script>
 </body>
-</html> 
-                    
+</html>                  
