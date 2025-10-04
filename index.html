@@ -1,5 +1,4 @@
-               
-    <!DOCTYPE html>
+              <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +12,7 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* ANIMATIONS & UTILITIES (Added final heart animation styles) */
+    /* ANIMATIONS & UTILITIES (Unchanged) */
     /* ------------------------------------------------ */
     @keyframes sparkle-glow {
         0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
@@ -22,138 +21,93 @@
     }
     .sparkle-effect { animation: sparkle-glow 0.4s ease-out; }
     
-    .hidden-slide {
-        display: none !important;
-        opacity: 0 !important;
-        pointer-events: none; 
-    }
+    .hidden-slide { display: none !important; opacity: 0 !important; pointer-events: none; }
     
     @keyframes heart-fall {
         0% { transform: translateY(-100vh) rotateZ(0deg); opacity: 0; }
         10% { opacity: 0.8; }
         100% { transform: translateY(100vh) rotateZ(360deg); opacity: 0; }
     }
-    
-    /* Style for the falling hearts on the final slide */
     #finalHeartRain {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 5;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 5;
     }
     .falling-heart-final {
-        position: absolute;
-        top: 0;
-        color: white; /* White hearts */
-        font-size: 1.5em;
-        animation: heart-fall 10s linear infinite;
+        position: absolute; top: 0; color: white; font-size: 1.5em; animation: heart-fall 10s linear infinite;
     }
 
 
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (SUBTLE DOT PATTERN) */
+    /* GENERAL BODY & BACKGROUND - (CLEAN BACKGROUND) */
     /* ------------------------------------------------ */
     body { 
-        font-family: 'Poppins', sans-serif; 
-        text-align: center; 
-        margin: 0;
-        
-        background-color: #f0f0f0; 
-        
-        /* Subtle dot pattern */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='0.5' fill='rgba(255, 255, 255, 0.5)'/%3E%3C/svg%3E");
-        background-size: 8px 8px;
-        background-repeat: repeat;
-        
-        color: #1a1a1a;
-        min-height: 100vh;
-        display: flex; 
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow-x: hidden; 
-        transition: background-color 0.8s ease; 
+        font-family: 'Poppins', sans-serif; text-align: center; margin: 0;
+        background-color: #f0f0f0; /* Simple light gray background */
+        color: #1a1a1a; min-height: 100vh;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        overflow-x: hidden; transition: background-color 0.8s ease; 
     }
     
-    /* ------------------------------------------------ */
-    /* START PAGE WRAPPER (CHERRY TREE BACKGROUND RESTORED) */
-    /* ------------------------------------------------ */
-    #startPageWrapper {
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        width: 100vw;
-        height: 100vh;
-        position: fixed; 
-        top: 0;
-        left: 0;
-        z-index: 100; 
-        
-        background-color: #1a0814; 
-        /* CRITICAL FIX: Ensure background image path is correct */
-        background-image: url('start_bg.jpg'); 
-        background-position: center bottom; 
-        background-repeat: no-repeat;
-        background-size: cover; 
-        transition: opacity 1s ease-out; 
+    /* Dot pattern class to be added dynamically by JS */
+    .dotted-background {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='0.5' fill='rgba(255, 255, 255, 0.5)'/%3E%3C/svg%3E");
+        background-size: 8px 8px; background-repeat: repeat;
     }
 
     /* ------------------------------------------------ */
-    /* INITIAL POPUP & BUTTON (Fixed design) */
+    /* START PAGE WRAPPER (CHERRY TREE BACKGROUND) */
+    /* ------------------------------------------------ */
+    #startPageWrapper {
+        display: flex; justify-content: center; align-items: center;
+        width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; 
+        z-index: 100; /* CRITICAL: Must be on top of everything */
+        
+        background-color: #1a0814; /* Solid dark color behind the image */
+        background-image: url('start_bg.jpg'); 
+        background-position: center bottom; background-repeat: no-repeat;
+        background-size: cover; transition: opacity 1s ease-out; 
+    }
+
+    /* ------------------------------------------------ */
+    /* INITIAL POPUP & BUTTON (Unchanged) */
     /* ------------------------------------------------ */
     #initialPopup {
-        background: rgba(255, 255, 255, 0.95); 
-        padding: 50px 30px; 
-        border-radius: 15px;
-        border: 2px solid #b57a9f; 
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
-        max-width: 90%;
-        width: 350px; 
-        margin: auto; 
+        background: rgba(255, 255, 255, 0.95); padding: 50px 30px; border-radius: 15px;
+        border: 2px solid #b57a9f; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+        max-width: 90%; width: 350px; margin: auto; 
     }
     
     #initialPopup button {
-        background-color: #b57a9f; 
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 15px 35px;
-        font-size: 1.2em;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
-        font-family: 'Poppins', sans-serif;
+        background-color: #b57a9f; color: white; border: none; border-radius: 8px;
+        padding: 15px 35px; font-size: 1.2em; cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s; font-family: 'Poppins', sans-serif;
     }
 
     /* ------------------------------------------------ */
-    /* STORY SLIDE CONTAINER (RESTORED SIDE-BY-SIDE LAYOUT) */
+    /* STORY SLIDE CONTAINER (Z-INDEX AND BACKGROUND FIX) */
     /* ------------------------------------------------ */
     #storySlide {
-        display: none; 
-        position: relative; 
+        display: none; position: relative; 
         
-        max-width: 480px; 
-        width: 90%; 
+        max-width: 550px; 
+        width: 95%; 
         padding: 20px 10px; 
         
-        flex-direction: column; 
-        justify-content: center;
-        align-items: center;
-        z-index: 50; 
+        flex-direction: column; justify-content: center; align-items: center; 
+        
+        z-index: 50; /* CRITICAL: Ensures slide is above the cherry tree background */
+        background-color: transparent; /* Changed to transparent, color set by JS on body */
     }
-
-    /* CORE FIX: Uses flex-wrap to restore side-by-side but allows wrapping */
+    
+    /* CORE: Side-by-Side Flex Layout */
     .slide-content-wrapper {
         display: flex; 
         flex-direction: row; 
         flex-wrap: wrap; 
         justify-content: center; 
-        align-items: flex-start;
+        align-items: flex-start; 
         width: 100%;
         margin-bottom: 20px;
+        max-height: 300px;
     }
 
     /* Image wrapper (The white frame) */
@@ -173,7 +127,7 @@
     /* Text box is solid white for readability */
     #slideText {
         flex-grow: 1; 
-        min-width: 200px; 
+        min-width: 250px; 
         max-width: 100%; 
         background: white; 
         color: black; 
@@ -190,7 +144,7 @@
     
     /* Final Slide Styles */
     .final-slide-text {
-        color: white !important; /* CRITICAL FIX: Changed text color to white against black background */
+        color: white !important; 
         background: rgba(255, 255, 255, 0.1) !important;
         border: 2px solid white;
         text-align: center !important;
@@ -201,23 +155,15 @@
     }
     
     #nextSlideButton {
-        padding: 10px 30px; 
-        font-size: 1.1em;
+        padding: 10px 30px; font-size: 1.1em;
         margin-top: 35px; 
-        background-color: #b57a9f; 
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
+        background-color: #b57a9f; color: white; border: none;
+        border-radius: 8px; cursor: pointer;
         transition: background-color 0.3s, transform 0.2s;
     }
 
-    /* MEDIA QUERY FIX: Force stacking on very narrow screens */
+    /* Force Stacking on the Smallest Phones if content cannot fit side-by-side */
     @media (max-width: 450px) {
-        .slide-content-wrapper {
-            flex-direction: column; 
-            align-items: center;
-        }
         #slideImageWrapper {
             margin-right: 0;
             margin-bottom: 25px;
@@ -225,10 +171,7 @@
         #slideText {
             width: 100%; 
             min-width: unset; 
-            text-align: center;
-        }
-        #storySlide {
-            max-width: 90%;
+            text-align: center; 
         }
     }
 </style>
@@ -270,4 +213,5 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+</html> 
+                    
