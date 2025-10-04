@@ -1,4 +1,4 @@
-          <!DOCTYPE html>
+               <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -104,7 +104,7 @@
         margin-bottom: 20px;
     }
 
-    /* Image wrapper (The white frame) */
+    /* Image wrapper (The white frame) - Hidden on final slide */
     #slideImageWrapper {
         width: 170px; 
         height: 250px; 
@@ -118,7 +118,7 @@
         flex-shrink: 0;
     }
     
-    /* Text box is solid white for readability */
+    /* Text box for Standard Slides */
     #slideText {
         width: 100%; 
         min-height: 120px; 
@@ -130,35 +130,39 @@
         text-align: center; 
         font-size: 1em;
         line-height: 1.4;
-        /* CRITICAL FIX: Ensure text is hidden until it's scrolled into view */
-        overflow: hidden; 
-        position: relative; /* Needed for reliable overflow */
         box-sizing: border-box; 
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         margin-bottom: 0; 
+
+        /* Ensures text wraps and scrolling works for standard slides */
+        overflow-y: auto; 
+        overflow-x: hidden; 
+        white-space: normal !important; 
+        word-wrap: break-word; 
     }
 
-    /* The content being typed needs to scroll *within* the fixed box */
-    #slideText:not(.final-slide-text) {
-        overflow-y: auto; /* Enable scrolling for standard slides */
-        white-space: normal; /* Allow text to wrap */
-    }
-
-    
-    /* Final Slide Styles (Perfection) */
+    /* Final Slide Styles (THE CRITICAL FIX) */
     .final-slide-text {
-        width: 90%; 
+        width: 100%; /* Take full width of parent container */
         max-width: 450px;
+        
+        /* New Scrollable Height */
+        min-height: 250px; 
+        max-height: 350px; 
+
         color: white !important; 
         background: rgba(255, 255, 255, 0.2) !important; 
         border: 2px solid white;
         text-align: center !important;
         font-style: italic;
         padding: 30px;
-        max-height: none; 
         font-size: 1.1em;
         line-height: 1.6; 
-        overflow: visible; /* Final slide is designed to be fully visible */
+        
+        /* Enable scrolling for long final message */
+        overflow-y: auto !important; 
+        overflow-x: hidden !important;
+        white-space: normal !important;
     }
     
     #nextSlideButton {
@@ -208,6 +212,4 @@
 
     <script src="script.js"></script>
 </body>
-</html> 
-    
-    
+</html>       
