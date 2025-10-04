@@ -1,4 +1,5 @@
-         document.addEventListener('DOMContentLoaded', () => {
+                         
+        document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startButton');
     const startPageWrapper = document.getElementById('startPageWrapper');
     const storySlide = document.getElementById('storySlide');
@@ -12,6 +13,7 @@
     // --- Configuration ---
     let currentSlideIndex = 0;
     const MUSIC_FILE = 'music.mp3'; // Ensure this file exists in your directory!
+    const TYPING_SPEED = 40; // Milliseconds per character (Slightly slower for stability)
 
     // Your Story Content
     const storySlides = [
@@ -51,9 +53,10 @@
 
     // --- Core Functions ---
 
+    // CRITICAL FIX: Reverting to stable setTimeout typing function
     function typeWriter(text, element, callback) {
         let i = 0;
-        element.textContent = ''; 
+        element.textContent = ''; // Clear existing text
         
         // Reset scrolling before typing starts
         element.scrollTop = 0;
@@ -63,7 +66,7 @@
             if (i < text.length) {
                 element.textContent += text.charAt(i);
                 i++;
-                requestAnimationFrame(type);
+                setTimeout(type, TYPING_SPEED); // Use standard setTimeout for reliable timing
             } else {
                 // Re-enable scrolling after typing is complete
                 element.style.overflowY = 'auto'; 
@@ -102,9 +105,9 @@
             slideText.classList.add('final-slide-text');
             storySlide.style.backgroundColor = 'black';
             document.body.style.backgroundColor = 'black';
-            document.body.classList.remove('dotted-background'); // Remove dots for final slide (FIX #1)
+            document.body.classList.remove('dotted-background'); // Remove dots (as requested)
             finalHeartRain.style.display = 'block';
-            backgroundMusic.pause(); // Stop music for the final message (FIX #3)
+            backgroundMusic.pause(); // Stop music
             backgroundMusic.currentTime = 0;
         } else {
             slideText.classList.remove('final-slide-text');
@@ -128,6 +131,10 @@
     // CRITICAL FIX: Function to handle the return to start page
     function returnToStart() {
         currentSlideIndex = 0;
+        // Pause and reset music (again, just in case)
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+        
         // Fade out story slide
         storySlide.style.opacity = '0';
         finalHeartRain.style.display = 'none';
@@ -135,16 +142,17 @@
         // Fade in start page
         setTimeout(() => {
             storySlide.style.display = 'none';
+            storySlide.style.opacity = '1'; // Reset opacity for next run
             startPageWrapper.style.display = 'flex';
             document.body.classList.remove('dotted-background');
-            document.body.style.backgroundColor = '#1a0814'; // Reset body color to match start screen
+            document.body.style.backgroundColor = '#f0f0f0'; // Reset body color to light gray (from initial CSS)
             startPageWrapper.style.opacity = '1';
         }, 800);
     }
     
     // Function to start the slideshow from the start page
     function startSlideshow() {
-        // Music starts here (FIX #3)
+        // Music starts here
         backgroundMusic.src = MUSIC_FILE;
         backgroundMusic.volume = 0.5; 
         backgroundMusic.play().catch(e => console.log("Music auto-play blocked.", e));
@@ -172,5 +180,6 @@
     });
 
     // Initialize the final slide styling for the initial load
+    // This is needed to ensure the text box size is initially correct.
     slideText.classList.add('final-slide-text'); 
-});            
+});
