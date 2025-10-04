@@ -1,4 +1,4 @@
-       <!DOCTYPE html>
+         <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@
     }
 
     /* ------------------------------------------------ */
-    /* GENERAL BODY & BACKGROUND - (SUBTLE DOT PATTERN) */
+    /* GENERAL BODY & BACKGROUND - (FINAL SUBTLE DOT PATTERN) */
     /* ------------------------------------------------ */
     body { 
         font-family: 'Poppins', sans-serif; 
@@ -53,7 +53,7 @@
     }
     
     /* ------------------------------------------------ */
-    /* START PAGE WRAPPER & INITIAL POPUP */
+    /* START PAGE WRAPPER (Your Beautiful Cherry Tree Image) */
     /* ------------------------------------------------ */
     #startPageWrapper {
         display: flex; 
@@ -67,13 +67,16 @@
         z-index: 100; 
         
         background-color: #1a0814; 
-        background-image: url('start_bg.jpg'); /* Your tree image (304f2e99390a2e4e9c873e7519614962.jpg renamed) */
+        background-image: url('start_bg.jpg'); /* The cherry blossom image */
         background-position: center bottom; 
         background-repeat: no-repeat;
         background-size: cover; 
         transition: opacity 1s ease-out; 
     }
 
+    /* ------------------------------------------------ */
+    /* INITIAL POPUP */
+    /* ------------------------------------------------ */
     #initialPopup {
         background: rgba(255, 255, 255, 0.95); 
         padding: 50px 30px; 
@@ -82,66 +85,63 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
         max-width: 90%;
         width: 350px; 
+        margin: auto; 
     }
-    
+
     /* ------------------------------------------------ */
-    /* STORY SLIDE CONTAINER (CORE LAYOUT FIX) */
+    /* STORY SLIDE CONTAINER (SIMPLIFIED & STACKING FIX) */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; 
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        /* Use relative positioning within the centered body flex container for stability */
+        position: relative; 
         
         max-width: 420px; 
         width: 90%; 
-        padding: 20px 10px; /* Added more vertical padding */
+        padding: 20px; /* Uniform padding */
         
-        /* IMPORTANT: This needs to be flex to center content */
         flex-direction: column; 
         justify-content: center;
         align-items: center;
         z-index: 50; 
     }
 
+    /* CRITICAL: Simplified wrapper for mobile-first stacking */
     .slide-content-wrapper {
         display: flex; 
-        flex-direction: row;
-        justify-content: space-between; 
-        align-items: flex-start;
+        flex-direction: column; /* Always stack content */
+        align-items: center;
         width: 100%;
         margin-bottom: 20px;
     }
 
     /* Image wrapper (The white frame) */
     #slideImageWrapper {
-        width: 150px; /* Slight width adjustment */
-        height: 220px;
+        width: 170px; /* Consistent size */
+        height: 240px;
         background: white; 
         border: 1px solid #ddd;
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transform: rotateZ(-3deg); 
-        margin-right: 15px; 
-        flex-shrink: 0; /* Prevents it from shrinking */
+        margin-bottom: 25px; /* Spacing below image */
+        flex-shrink: 0;
     }
     
     /* Text box is solid white for readability */
     #slideText {
-        flex-grow: 1; 
-        /* CRITICAL FIX: Set a max-width to ensure it doesn't try to take over the screen */
-        max-width: calc(100% - 170px); 
         background: white; 
         color: black; 
         padding: 20px;
         border-radius: 10px;
-        text-align: left;
+        text-align: center; /* Center text for stacking layout */
         font-size: 1em;
         line-height: 1.4;
-        max-height: 230px; 
+        max-height: 250px; 
         overflow-y: auto; 
+        width: 100%; /* Text box takes full container width */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     
     /* Final Slide Styles */
@@ -168,27 +168,6 @@
         transition: background-color 0.3s, transform 0.2s;
     }
 
-    /* ------------------------------------------------ */
-    /* MEDIA QUERY (Mobile Layout Fix) */
-    /* ------------------------------------------------ */
-    @media (max-width: 480px) {
-        .slide-content-wrapper {
-            flex-direction: column; 
-            align-items: center;
-            height: auto; 
-        }
-        #slideImageWrapper {
-            margin-right: 0;
-            margin-bottom: 20px;
-        }
-        /* CRITICAL FIX: Allow text to take full width when stacked on mobile */
-        #slideText {
-            max-width: 90%; 
-            margin: 0 auto; /* Center the text box */
-            /* Removed flex-grow on mobile to stop stretching */
-            flex-grow: 0;
-        }
-    }
 </style>
 </head>
 <body>
@@ -198,8 +177,6 @@
         <div class="falling-petal" style="left: 5%; animation-delay: 0s;">🌸</div>
         <div class="falling-petal" style="left: 15%; animation-delay: 2s;">🌸</div>
         <div class="falling-petal" style="left: 25%; animation-delay: 4s;">🌸</div>
-        <div class="falling-petal" style="left: 35%; animation-delay: 6s; font-size: 1.8em;">🌸</div>
-        <div class="falling-petal" style="left: 45%; animation-delay: 8s; font-size: 1.2em;">🌸</div>
 
         <div id="initialPopup">
             <h1>Happy Birthday</h1>
@@ -213,14 +190,12 @@
         <div class="falling-heart-final" style="left: 10%; animation-delay: 0s;">🤍</div>
         <div class="falling-heart-final" style="left: 30%; animation-delay: 1s;">🤍</div>
         <div class="falling-heart-final" style="left: 50%; animation-delay: 2s;">🤍</div>
-        <div class="falling-heart-final" style="left: 70%; animation-delay: 3s;">🤍</div>
-        <div class="falling-heart-final" style="left: 90%; animation-delay: 4s;">🤍</div>
     </div>
 
     <div id="storySlide">
         <div class="slide-content-wrapper">
             <div id="slideImageWrapper">
-                <img id="slideImage" src="" alt="A memory photo">
+                <img id="slideImage" src="" alt="A memory photo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 3px;">
             </div>
             
             <p id="slideText"></p>
@@ -230,4 +205,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+</html>      
