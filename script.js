@@ -1,5 +1,5 @@
                          
-        document.addEventListener('DOMContentLoaded', () => {
+             document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startButton');
     const startPageWrapper = document.getElementById('startPageWrapper');
     const storySlide = document.getElementById('storySlide');
@@ -13,9 +13,9 @@
     // --- Configuration ---
     let currentSlideIndex = 0;
     const MUSIC_FILE = 'music.mp3'; // Ensure this file exists!
-    const TYPING_SPEED = 0; // CRITICAL FIX: Set speed to 0 for instant, non-scrambled text
+    const TYPING_SPEED = 50; // Milliseconds per character (Slightly slower for stability)
 
-    // Your Story Content (Cleaned up final message punctuation)
+    // Your Story Content (Using your last confirmed clean text)
     const storySlides = [
         {
             image: 'photo1.jpg',
@@ -53,15 +53,27 @@
 
     // --- Core Functions ---
 
-    // Final Typing Function - Now for instant display
+    // Stable Typing Function (Using safe Array.from)
     function typeWriter(text, element, callback) {
-        // Skips the loop entirely, displays text instantly
-        element.textContent = text; 
+        const characters = Array.from(text);
+        let i = 0;
         
-        // Ensure scrolling is active for long messages
-        element.style.overflowY = 'auto'; 
-
-        if (callback) callback();
+        element.textContent = ''; 
+        element.scrollTop = 0;
+        element.style.overflowY = 'hidden'; 
+        
+        function type() {
+            if (i < characters.length) {
+                // Use array index for guaranteed character retrieval
+                element.textContent += characters[i]; 
+                i++;
+                setTimeout(type, TYPING_SPEED); 
+            } else {
+                element.style.overflowY = 'auto'; 
+                if (callback) callback();
+            }
+        }
+        type();
     }
 
     function showSlide(index) {
@@ -93,7 +105,7 @@
             document.body.style.backgroundColor = 'black';
             document.body.classList.remove('dotted-background'); 
             finalHeartRain.style.display = 'block';
-            backgroundMusic.pause(); 
+            backgroundMusic.pause(); // Music stop control
             backgroundMusic.currentTime = 0;
         } else {
             slideText.classList.remove('final-slide-text');
@@ -104,7 +116,7 @@
             finalHeartRain.style.display = 'none';
         }
         
-        // 4. Typing Effect (Now instant)
+        // 4. Typing Effect
         typeWriter(slide.text, slideText);
     }
     
@@ -113,6 +125,7 @@
         showSlide(currentSlideIndex);
     }
     
+    // Logic to return to the start screen
     function returnToStart() {
         currentSlideIndex = 0;
         backgroundMusic.pause();
@@ -131,6 +144,7 @@
         }, 800);
     }
     
+    // Logic to start the slideshow (music starts here)
     function startSlideshow() {
         backgroundMusic.src = MUSIC_FILE;
         backgroundMusic.volume = 0.5; 
@@ -158,5 +172,5 @@
 
     // Initialize
     slideText.classList.add('final-slide-text'); 
-});
-                        
+});      
+        
