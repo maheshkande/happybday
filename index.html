@@ -1,5 +1,4 @@
-                 
-         <!DOCTYPE html>
+           <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +12,7 @@
 
 <style>
     /* ------------------------------------------------ */
-    /* ANIMATIONS & UTILITIES */
+    /* ANIMATIONS & UTILITIES (Unchanged) */
     /* ------------------------------------------------ */
     @keyframes sparkle-glow {
         0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5); transform: scale(1); }
@@ -54,28 +53,10 @@
     }
     
     /* ------------------------------------------------ */
-    /* START PAGE WRAPPER & INITIAL POPUP */
+    /* START BUTTON & POPUP (Fixed design) */
     /* ------------------------------------------------ */
-    #startPageWrapper {
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        width: 100vw;
-        height: 100vh;
-        position: fixed; 
-        top: 0;
-        left: 0;
-        z-index: 100; 
-        
-        background-color: #1a0814; 
-        background-image: url('start_bg.jpg'); /* The cherry blossom image */
-        background-position: center bottom; 
-        background-repeat: no-repeat;
-        background-size: cover; 
-        transition: opacity 1s ease-out; 
-    }
-
     #initialPopup {
+        /* (Popup styles are restored from previous working versions) */
         background: rgba(255, 255, 255, 0.95); 
         padding: 50px 30px; 
         border-radius: 15px;
@@ -86,7 +67,6 @@
         margin: auto; 
     }
     
-    /* FIX: RESTORING THE START BUTTON DESIGN */
     #initialPopup button {
         background-color: #b57a9f; 
         color: white;
@@ -100,15 +80,16 @@
     }
 
     /* ------------------------------------------------ */
-    /* STORY SLIDE CONTAINER (CORE LAYOUT FIX: STACKED) */
+    /* STORY SLIDE CONTAINER (RESTORED SIDE-BY-SIDE LAYOUT) */
     /* ------------------------------------------------ */
     #storySlide {
         display: none; 
         position: relative; 
         
-        max-width: 350px; 
+        /* Increased max-width to give room for side-by-side content */
+        max-width: 480px; 
         width: 90%; 
-        padding: 20px; 
+        padding: 20px 10px; 
         
         flex-direction: column; 
         justify-content: center;
@@ -116,47 +97,50 @@
         z-index: 50; 
     }
 
-    /* FORCED STACKING LAYOUT */
+    /* CORE FIX: Uses flex-wrap to restore side-by-side but allows wrapping */
     .slide-content-wrapper {
         display: flex; 
-        flex-direction: column; 
-        align-items: center;
+        flex-direction: row; /* Side-by-Side default */
+        flex-wrap: wrap; /* Allows text to drop below image on small screens */
+        justify-content: center; /* Center content when it wraps */
+        align-items: flex-start;
         width: 100%;
         margin-bottom: 20px;
     }
 
     /* Image wrapper (The white frame) */
     #slideImageWrapper {
-        width: 170px; 
-        height: 240px;
+        width: 150px; 
+        height: 220px;
         background: white; 
         border: 1px solid #ddd;
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transform: rotateZ(-3deg); 
-        margin-bottom: 25px; 
+        margin-right: 15px; 
         flex-shrink: 0;
     }
     
     /* Text box is solid white for readability */
     #slideText {
+        flex-grow: 1; /* Allows text to take remaining space */
+        min-width: 200px; /* Ensures text box is wide enough to look good beside image */
+        max-width: 100%; /* Prevents horizontal overflow */
         background: white; 
         color: black; 
         padding: 20px;
         border-radius: 10px;
-        text-align: center; 
+        text-align: left; 
         font-size: 1em;
         line-height: 1.4;
-        /* Increased max-height slightly for better fit */
-        max-height: 280px; 
+        max-height: 230px; 
         overflow-y: auto; 
-        width: 100%; 
         box-sizing: border-box; 
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     
-    /* Final Slide Styles */
+    /* Final Slide Styles (Unchanged) */
     .final-slide-text {
         color: black !important;
         background: white !important;
@@ -171,7 +155,7 @@
     #nextSlideButton {
         padding: 10px 30px; 
         font-size: 1.1em;
-        /* CRITICAL FIX: Increased margin to push button away from text box */
+        /* Increased margin to guarantee separation from text box */
         margin-top: 35px; 
         background-color: #b57a9f; 
         color: white;
@@ -181,16 +165,31 @@
         transition: background-color 0.3s, transform 0.2s;
     }
 
+    /* MEDIA QUERY FIX: Force stacking on very narrow screens */
+    @media (max-width: 450px) {
+        .slide-content-wrapper {
+            flex-direction: column; 
+            align-items: center;
+        }
+        #slideImageWrapper {
+            margin-right: 0;
+            margin-bottom: 25px;
+        }
+        #slideText {
+            width: 100%; 
+            min-width: unset; 
+            text-align: center;
+        }
+        #storySlide {
+            max-width: 90%;
+        }
+    }
 </style>
 </head>
 <body>
     <audio id="backgroundMusic" preload="auto" loop></audio>
 
     <div id="startPageWrapper">
-        <div class="falling-petal" style="left: 5%; animation-delay: 0s;">🌸</div>
-        <div class="falling-petal" style="left: 15%; animation-delay: 2s;">🌸</div>
-        <div class="falling-petal" style="left: 25%; animation-delay: 4s;">🌸</div>
-
         <div id="initialPopup">
             <h1>Happy Birthday</h1>
             <h2>My Dearest Sister...</h2>
@@ -200,10 +199,7 @@
     </div>
     
     <div id="finalHeartRain" style="display:none;">
-        <div class="falling-heart-final" style="left: 10%; animation-delay: 0s;">🤍</div>
-        <div class="falling-heart-final" style="left: 30%; animation-delay: 1s;">🤍</div>
-        <div class="falling-heart-final" style="left: 50%; animation-delay: 2s;">🤍</div>
-    </div>
+        </div>
 
     <div id="storySlide">
         <div class="slide-content-wrapper">
@@ -218,4 +214,5 @@
 
     <script src="script.js"></script>
 </body>
-</html>             
+</html>      
+                
