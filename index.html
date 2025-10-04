@@ -1,5 +1,5 @@
                      
-        <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -161,4 +161,221 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 9
+            z-index: 99;
+        }
+        
+        .final-text-box {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.2em;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* HEART RAIN ANIMATION */
+        .heart-rain {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none;
+        }
+        @keyframes rain { 0% { transform: translateY(-100vh) scale(0.5); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(100vh) scale(1.2); opacity: 0; } }
+        .heart-rain span { position: absolute; width: 15px; height: 15px; background: #ff5050; border-radius: 50%; opacity: 0; animation: rain 10s linear infinite; }
+        .heart-rain span:nth-child(2n) { background: #ffaaaa; animation-delay: 1.5s; }
+        .heart-rain span:nth-child(3n) { animation-delay: 3s; left: 50%; }
+        .heart-rain span:nth-child(4n) { animation-delay: 4.5s; }
+        .heart-rain span:nth-child(5n) { animation-delay: 6s; left: 75%; }
+    </style>
+</head>
+<body>
+
+    <section id="startPageWrapper">
+        <div class="start-card">
+            <h1 class="start-title">Happy Birthday</h1>
+            <h2 class="start-subtitle">My Dearest Sister...</h2>
+            <p class="gift-instruction">
+                Please turn up your volume and click 'Start' to begin your special story.
+            </p>
+            <button id="startButton" class="start-button" onclick="startSlideshow()">Open Your Gift! 💖</button>
+            <audio id="backgroundMusic" src="music.mp3" loop style="display: none;"></audio>
+        </div>
+    </section>
+
+    <div id="slideshowContainer">
+        
+        <div class="slide-item" data-bg-color="#f5c5b5">
+            <div class="image-wrapper">
+                <img class="slide-image" src="photo1.jpg" alt="Memory Photo 1">
+            </div>
+            <div class="slide-text-box">
+                <p id="slide-text-0" class="slide-text-content">My Dear Sister, I wanted to tell you how much you mean to me. I know I don't say this often, but you are the best sister a person could ask for. Thank you for always being there for me, unconditionally.</p>
+            </div>
+            <button class="slideshow-button" id="next-btn-0" onclick="nextSlide()" style="display:none;">Next Memory</button>
+        </div>
+
+        <div class="slide-item" data-bg-color="#b5f5c5">
+            <div class="image-wrapper">
+                <img class="slide-image" src="photo2.jpg" alt="Memory Photo 2">
+            </div>
+            <div class="slide-text-box">
+                <p id="slide-text-1" class="slide-text-content">Remember all those silly fights we used to have? They feel so small now. Every memory we share, whether good or bad, I cherish it all. You are a true blessing in my life.</p>
+            </div>
+            <button class="slideshow-button" id="next-btn-1" onclick="nextSlide()" style="display:none;">Next Memory</button>
+        </div>
+
+        <div class="slide-item" data-bg-color="#c5b5f5">
+            <div class="image-wrapper">
+                <img class="slide-image" src="photo3.jpg" alt="Memory Photo 3">
+            </div>
+            <div class="slide-text-box">
+                <p id="slide-text-2" class="slide-text-content">Ela start cheyalo, ela end cheyalo teliyadu. Ur the best one ra, you always had my back. Enno sarlu rakhi roju rakhi kadthavu anukune vaadini but I know you love me equally.</p>
+            </div>
+            <button class="slideshow-button" id="next-btn-2" onclick="nextSlide()" style="display:none;">Next Memory</button>
+        </div>
+
+        <div class="slide-item" data-bg-color="#f5c5b5">
+            <div class="image-wrapper">
+                <img class="slide-image" src="photo4.jpg" alt="Memory Photo 4">
+            </div>
+            <div class="slide-text-box">
+                <p id="slide-text-3" class="slide-text-content">Ala ani yekkuva smile cheyaku ra, distti thakkuthundhi. I love that you're always trying to make things better for everyone, even when you're going through tough times. You are stronger than you think.</p>
+            </div>
+            <button class="slideshow-button" id="next-btn-3" onclick="nextSlide()" style="display:none;">Next Memory</button>
+        </div>
+
+        <div class="slide-item" data-bg-color="#b5f5c5">
+            <div class="image-wrapper">
+                <img class="slide-image" src="photo5.jpg" alt="Memory Photo 5">
+            </div>
+            <div class="slide-text-box">
+                <p id="slide-text-4" class="slide-text-content">From sharing secrets to covering up for each other, we've done it all. May your special day be filled with joy, laughter, and everything you wished for.</p>
+            </div>
+            <button class="slideshow-button" id="next-btn-4" onclick="nextSlide()" style="display:none;">Finished Reading!</button>
+        </div>
+
+    </div>
+
+    <section id="finalSlide">
+        <div class="heart-rain">
+            <span style="left: 10%;"></span><span style="left: 20%;"></span><span style="left: 30%;"></span>
+            <span style="left: 40%;"></span><span style="left: 60%;"></span><span style="left: 70%;"></span>
+            <span style="left: 80%;"></span><span style="left: 90%;"></span>
+        </div>
+
+        <div class="final-text-box">
+            “This may be the last time I get to speak to you like this, and I want every word to matter. You have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.”
+        </div>
+        
+        <h2 style="margin-top: 50px; font-family: 'Dancing Script', cursive; font-size: 2em; color: white;">I Love You, Akka.</h2>
+        <button class="slideshow-button" style="margin-top: 20px;" onclick="location.reload()">Finished (Click to Re-read)</button>
+    </section>
+
+    <script>
+        let currentSlideIndex = 0;
+        let slides = [];
+        const slideshowContainer = document.getElementById('slideshowContainer');
+        const startPageWrapper = document.getElementById('startPageWrapper');
+        const finalSlide = document.getElementById('finalSlide');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        let typingTimeout = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            slides = Array.from(document.querySelectorAll('.slide-item'));
+            slideshowContainer.style.display = 'none';
+        });
+
+        // Safer, Embedded Typing Animation Function
+        function typeWriter(textElementId, buttonElementId) {
+            const textElement = document.getElementById(textElementId);
+            const buttonElement = document.getElementById(buttonElementId);
+            
+            // Fallback: If elements aren't ready or slide transitions, show full text instantly.
+            if (!textElement || !slides[currentSlideIndex].classList.contains('active')) {
+                if (textElement) textElement.style.opacity = 1;
+                if (buttonElement) buttonElement.style.display = 'inline-block';
+                return;
+            }
+
+            const fullText = textElement.textContent;
+            textElement.textContent = ''; 
+            textElement.style.opacity = 1;
+            buttonElement.style.display = 'none'; 
+            
+            let i = 0;
+            const speed = 30; // 30ms delay per character
+
+            function type() {
+                if (i < fullText.length) {
+                    textElement.textContent += fullText.charAt(i);
+                    i++;
+                    typingTimeout = setTimeout(type, speed);
+                } else {
+                    buttonElement.style.display = 'inline-block';
+                }
+            }
+
+            type();
+        }
+
+        function startSlideshow() {
+            backgroundMusic.volume = 0.5;
+            // CRITICAL: Play music on user click
+            backgroundMusic.play().catch(e => console.error("Music failed to play."));
+
+            startPageWrapper.style.opacity = '0';
+            
+            setTimeout(() => {
+                startPageWrapper.style.display = 'none';
+                slideshowContainer.style.display = 'flex';
+                showSlide(0);
+
+            }, 1000); 
+        }
+
+        // Handles the display logic for each slide
+        function showSlide(index) {
+            // Clear any previous typing timeout before transitioning
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+            }
+            
+            // Hide all slides first
+            slides.forEach((slide) => {
+                slide.classList.remove('active');
+            });
+
+            if (index < slides.length) {
+                // Show the target slide
+                slides[index].classList.add('active');
+                
+                // Change the background color to match the slide's theme
+                slideshowContainer.style.backgroundColor = slides[index].getAttribute('data-bg-color');
+                
+                currentSlideIndex = index;
+                
+                // Start the typing animation
+                const textElementId = `slide-text-${index}`;
+                const buttonElementId = `next-btn-${index}`;
+                typeWriter(textElementId, buttonElementId);
+
+            } else {
+                // Transition to the final page
+                // FIX: Stop the music here 
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0; // Rewind for next play
+
+                slideshowContainer.style.display = 'none';
+                finalSlide.style.display = 'flex';
+            }
+        }
+
+        // Function for the "Next Memory" button
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+        }
+    </script>
+</body>
+</html>
