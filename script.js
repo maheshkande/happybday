@@ -1,4 +1,4 @@
-     document.addEventListener('DOMContentLoaded', () => {
+         document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startButton');
     const startPageWrapper = document.getElementById('startPageWrapper');
     const storySlide = document.getElementById('storySlide');
@@ -42,7 +42,7 @@
         },
         // The Final Slide (Special Styling)
         {
-            image: null, // No image for the final slide
+            image: null, 
             text: "*\"This may be the last time I get to speak to you like this, and I want every word to matter. You have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.\"*",
             buttonText: 'Finished (Click to Re-read)',
             isFinal: true
@@ -53,9 +53,9 @@
 
     function typeWriter(text, element, callback) {
         let i = 0;
-        element.textContent = ''; // Clear existing text
+        element.textContent = ''; 
         
-        // CRITICAL FIX: Reset scrolling before typing starts
+        // Reset scrolling before typing starts
         element.scrollTop = 0;
         element.style.overflowY = 'hidden'; 
         
@@ -65,7 +65,7 @@
                 i++;
                 requestAnimationFrame(type);
             } else {
-                // CRITICAL FIX: Re-enable scrolling after typing is complete
+                // Re-enable scrolling after typing is complete
                 element.style.overflowY = 'auto'; 
                 if (callback) callback();
             }
@@ -89,18 +89,25 @@
 
         // 2. Button Text Update
         nextSlideButton.textContent = slide.buttonText;
+        
+        // Ensure the next button logic points to the correct handler function
+        if (slide.isFinal) {
+            nextSlideButton.onclick = returnToStart;
+        } else {
+            nextSlideButton.onclick = goToNextSlide;
+        }
 
-        // 3. Final Slide Aesthetics
+        // 3. Final Slide Aesthetics and Background Control
         if (slide.isFinal) {
             slideText.classList.add('final-slide-text');
             storySlide.style.backgroundColor = 'black';
             document.body.style.backgroundColor = 'black';
-            document.body.classList.remove('dotted-background'); // Remove dots for final slide
+            document.body.classList.remove('dotted-background'); // Remove dots for final slide (FIX #1)
             finalHeartRain.style.display = 'block';
-            nextSlideButton.onclick = () => showSlide(0); // Loop back to start
+            backgroundMusic.pause(); // Stop music for the final message (FIX #3)
+            backgroundMusic.currentTime = 0;
         } else {
             slideText.classList.remove('final-slide-text');
-            // Background colors for standard slides (match your pattern colors)
             const colors = ['#f5c5b5', '#b5f5c5', '#c5b5f5'];
             storySlide.style.backgroundColor = colors[index % colors.length];
             document.body.style.backgroundColor = colors[index % colors.length];
@@ -111,8 +118,59 @@
         // 4. Typing Effect
         typeWriter(slide.text, slideText);
     }
+    
+    // Function to handle moving to the next story slide
+    function goToNextSlide() {
+        currentSlideIndex = (currentSlideIndex + 1) % storySlides.length;
+        showSlide(currentSlideIndex);
+    }
+    
+    // CRITICAL FIX: Function to handle the return to start page
+    function returnToStart() {
+        currentSlideIndex = 0;
+        // Fade out story slide
+        storySlide.style.opacity = '0';
+        finalHeartRain.style.display = 'none';
 
+        // Fade in start page
+        setTimeout(() => {
+            storySlide.style.display = 'none';
+            startPageWrapper.style.display = 'flex';
+            document.body.classList.remove('dotted-background');
+            document.body.style.backgroundColor = '#1a0814'; // Reset body color to match start screen
+            startPageWrapper.style.opacity = '1';
+        }, 800);
+    }
+    
+    // Function to start the slideshow from the start page
     function startSlideshow() {
-        // Aesthetic Fixes:
+        // Music starts here (FIX #3)
         backgroundMusic.src = MUSIC_FILE;
-        backgroundMusic.volume   
+        backgroundMusic.volume = 0.5; 
+        backgroundMusic.play().catch(e => console.log("Music auto-play blocked.", e));
+
+        startPageWrapper.style.opacity = '0';
+        setTimeout(() => {
+            startPageWrapper.style.display = 'none';
+            storySlide.style.display = 'flex';
+            
+            // Start the story with the dot pattern
+            document.body.classList.add('dotted-background'); 
+
+            showSlide(currentSlideIndex);
+        }, 1000);
+    }
+
+    // --- Event Listeners ---
+    startButton.addEventListener('click', () => {
+        // Add a sparkle animation for visual feedback
+        startButton.classList.add('sparkle-effect');
+        setTimeout(() => {
+            startButton.classList.remove('sparkle-effect');
+            startSlideshow();
+        }, 300);
+    });
+
+    // Initialize the final slide styling for the initial load
+    slideText.classList.add('final-slide-text'); 
+});            
