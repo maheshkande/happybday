@@ -1,4 +1,4 @@
-                 <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,6 +30,13 @@
         animation: photo-pop 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Smooth, quick animation */
     }
     
+    /* NEW CRITICAL CLASS: Ensures the start page is completely hidden after fade-out */
+    .hidden-slide {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none; /* Prevents clicks on the hidden layer */
+    }
+
     /* ------------------------------------------------ */
     /* GENERAL BODY & BACKGROUND - (Clean Body for Story Slides) */
     /* ------------------------------------------------ */
@@ -48,15 +55,23 @@
         overflow-x: hidden; 
         transition: background-color 0.8s ease; 
     }
+    
+    /* CRITICAL FIX: Lock the story container to the center of the whole screen */
     .container { 
         display: flex; 
         flex-direction: column;
         justify-content: center; 
         align-items: center; 
-        width: 100%;
-        max-width: 420px;
+        
+        position: fixed; 
+        top: 0;
+        left: 0;
+        
+        width: 100vw; 
+        height: 100vh; 
+        
+        max-width: none; 
         padding: 0; 
-        min-height: 100vh;
     }
     
     /* ------------------------------------------------ */
@@ -78,7 +93,7 @@
         background-position: center bottom; 
         background-repeat: no-repeat;
         background-size: cover; 
-        transition: opacity 1s ease-out; 
+        transition: opacity 1s ease-out; /* FOR SMOOTH FADE OUT */
     }
 
     /* ------------------------------------------------ */
@@ -134,6 +149,8 @@
         flex-direction: column; 
         justify-content: center;
         align-items: center;
+        /* Ensure story slide content is above the fixed container, just visually */
+        z-index: 50; 
     }
 
     .slide-content-wrapper {
@@ -203,70 +220,4 @@
         box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 150, 0.5);
     }
 
-    /* NEW: Button Hover Effect */
-    #nextSlideButton:hover {
-        background-color: #a46a94; /* Slightly darker */
-        box-shadow: 0 0 15px rgba(255, 192, 203, 0.8), 0 0 10px rgba(0, 0, 0, 0.1); /* Pink glow */
-        transform: scale(1.02);
-    }
-
-    /* Final Slide Styles (Text-Only) */
-    .final-slide-text {
-        width: 95% !important; 
-        height: 80vh !important;
-        background: rgba(0, 0, 0, 0.9) !important;
-        color: white !important;
-        text-align: center !important;
-        padding: 20px !important;
-        overflow-y: scroll !important;
-        box-shadow: none !important;
-        font-size: 1.2em !important;
-    }
-</style>
-</head>
-<body>
-    <audio id="backgroundMusic" preload="auto" loop></audio>
-
-    <div class="container">
-        <div id="startPageWrapper">
-            <div class="falling-petal" style="left: 5%; animation-delay: 0s;">🌸</div>
-            <div class="falling-petal" style="left: 15%; animation-delay: 2s;">🌸</div>
-            <div class="falling-petal" style="left: 25%; animation-delay: 4s;">🌸</div>
-            <div class="falling-petal" style="left: 35%; animation-delay: 6s; font-size: 1.8em;">🌸</div>
-            <div class="falling-petal" style="left: 45%; animation-delay: 8s; font-size: 1.2em;">🌸</div>
-    
-            <div id="initialPopup">
-                <h1>Happy Birthday</h1>
-                <h2>My Dearest Sister...</h2>
-                <p>Please turn up your volume and click 'Start' to begin your special story.</p>
-                <button id="startButton">Open Your Gift! 💖</button>
-            </div>
-        </div>
-        
-        <div id="finalHeartRain" style="display:none;">
-            <div class="falling-heart-final" style="left: 10%; animation-delay: 0s;">🤍</div>
-            <div class="falling-heart-final" style="left: 30%; animation-delay: 1s;">🤍</div>
-            <div class="falling-heart-final" style="left: 50%; animation-delay: 2s;">🤍</div>
-            <div class="falling-heart-final" style="left: 70%; animation-delay: 3s;">🤍</div>
-            <div class="falling-heart-final" style="left: 90%; animation-delay: 4s;">🤍</div>
-            <div class="falling-heart-final" style="left: 20%; animation-delay: 5s;">🤍</div>
-            <div class="falling-heart-final" style="left: 40%; animation-delay: 6s;">🤍</div>
-            <div class="falling-heart-final" style="left: 60%; animation-delay: 7s;">🤍</div>
-            <div class="falling-heart-final" style="left: 80%; animation-delay: 8s;">🤍</div>
-        </div>
-
-        <div id="storySlide">
-            <div class="slide-content-wrapper">
-                <div id="slideImageWrapper">
-                    <img id="slideImage" src="" alt="A memory photo">
-                </div>
-                
-                <p id="slideText"></p>
-            </div>
-            <button id="nextSlideButton">Next Memory</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>    
+    /*
