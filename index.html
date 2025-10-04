@@ -1,18 +1,17 @@
-                       
-          <!DOCTYPE html>
+              <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Sister!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    
     <style>
+        /* CSS Variables */
         :root {
-            --color-bg-start: #1a0814;
-            --color-pink-soft: #f5c5b5;
-            --color-green-soft: #b5f5c5;
-            --color-purple-soft: #c5b5f5;
-            --color-button: #a879a8;
+            --color-pink-soft: #f5c5b5; /* Slide 1 & 4 */
+            --color-green-soft: #b5f5c5; /* Slide 2 & 5 */
+            --color-purple-soft: #c5b5f5; /* Slide 3 */
             --color-text-dark: #333;
             --color-text-light: #fff;
         }
@@ -36,7 +35,7 @@
             background-size: 20px 20px;
         }
 
-        /* --- Start Page Section (First thing seen) --- */
+        /* --- Start Page Section --- */
         .start-page {
             background-image: url('start_bg.jpg'); /* Ensure this file exists! */
             background-size: cover;
@@ -44,7 +43,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* Needs to be full height so scrolling can start below it */
+            height: 100vh; 
             width: 100%;
             text-align: center;
             position: relative;
@@ -94,7 +94,7 @@
             color: var(--color-text-dark);
         }
         
-        /* Specific slide colors */
+        /* Specific slide colors and dot pattern for story slides */
         .slide:nth-child(2) { background-color: var(--color-green-soft); }
         .slide:nth-child(3) { background-color: var(--color-purple-soft); }
         .slide:nth-child(4) { background-color: var(--color-pink-soft); }
@@ -133,9 +133,9 @@
             max-width: 500px;
             margin: 0 auto;
             max-height: 250px;
-            overflow-y: auto; /* Enable scrolling for long text */
+            overflow-y: auto; 
             text-align: left;
-            white-space: pre-wrap; /* Ensures text wraps correctly */
+            white-space: pre-wrap;
             font-size: 1.1em;
         }
 
@@ -167,8 +167,8 @@
             text-align: center;
             font-style: italic;
             font-size: 1.2em;
-            max-height: 300px; /* Constrain height */
-            overflow-y: auto; /* Ensure scrolling works */
+            max-height: 300px; 
+            overflow-y: auto; 
             color: white;
         }
         
@@ -215,8 +215,8 @@
             <p class="gift-instruction">
                 Please turn up your volume and scroll down to begin your special story.
             </p>
-            <audio id="backgroundMusic" src="music.mp3" controls loop style="display: none;"></audio>
-            <p style="margin-top: 30px; font-weight: 600;">(Please ensure music is playing in the background)</p>
+            <audio src="music.mp3" controls loop style="margin-top: 20px;"></audio>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #666;">(Tell her to tap the play button above to start the music!)</p>
         </div>
     </section>
 
@@ -297,23 +297,8 @@
         
         <h2 style="margin-top: 50px; font-family: 'Dancing Script', cursive; font-size: 2em; color: white;">I Love You, Akka.</h2>
     </section>
-    
-    <script>
-        // Simple JavaScript to enable music play when the user scrolls or interacts
-        document.addEventListener('DOMContentLoaded', () => {
-            const music = document.getElementById('backgroundMusic');
-            music.volume = 0.5;
-
-            // Attempt to play on user interaction (scroll or click anywhere)
-            document.addEventListener('scroll', () => {
-                music.play().catch(e => console.log("Music play blocked on scroll.", e));
-            }, { once: true });
-
-            document.addEventListener('click', () => {
-                music.play().catch(e => console.log("Music play blocked on click.", e));
-            }, { once: true });
-        });
-    </script>
 </body>
-</html>   
+</html>         
+        
+                
         
