@@ -1,4 +1,4 @@
-// --- Elements ---
+        // --- Elements ---
 const musicElement = document.getElementById('backgroundMusic'); 
 const initialPopup = document.getElementById('initialPopup');
 const startButton = document.getElementById('startButton');
@@ -9,7 +9,6 @@ const storySlide = document.getElementById('storySlide');
 const slideImage = document.getElementById('slideImage');
 const slideText = document.getElementById('slideText');
 const nextSlideButton = document.getElementById('nextSlideButton');
-const container = document.querySelector('.container'); 
 const body = document.querySelector('body'); 
 const slideImageWrapper = document.getElementById('slideImageWrapper');
 
@@ -17,13 +16,13 @@ const finalHeartRain = document.getElementById('finalHeartRain');
 
 // --- Color Palette for Transitions ---
 const colorPalette = [
-    '#ffc0cb', 
-    '#add8e6', 
-    '#90ee90', 
-    '#f08080', 
-    '#e6e6fa', 
-    '#ffa07a', 
-    '#bdb76b'  
+    '#ffc0cb', // Light Pink
+    '#add8e6', // Light Blue
+    '#90ee90', // Light Green
+    '#f08080', // Light Coral
+    '#e6e6fa', // Lavender
+    '#ffa07a', // Light Salmon
+    '#bdb76b'  // Dark Khaki (subtle yellow)
 ];
 
 // --- Story Data (Your content) ---
@@ -73,7 +72,7 @@ let isTyping = false;
 
 
 // -----------------------------------------------------------
-// A. TYPING EFFECT FUNCTION (Speed is 20ms, added glow)
+// A. TYPING EFFECT FUNCTION 
 // -----------------------------------------------------------
 function typeWriter(text, i, element, callback) {
     if (i < text.length) {
@@ -95,7 +94,7 @@ function typeWriter(text, i, element, callback) {
 
         setTimeout(() => {
             typeWriter(text, i + 1, element, callback);
-        }, 20); 
+        }, 20); // Fast typing speed
     } else {
         isTyping = false;
         // Clean up innerHTML after typing is complete
@@ -106,7 +105,7 @@ function typeWriter(text, i, element, callback) {
 
 
 // -----------------------------------------------------------
-// B. COLOR CHANGER FUNCTION (Changes the BODY background)
+// B. COLOR CHANGER FUNCTION 
 // -----------------------------------------------------------
 function changeBodyColor() {
     const randomIndex = Math.floor(Math.random() * colorPalette.length);
@@ -166,67 +165,4 @@ function displaySlide(index) {
         // Set wrapper styles for side-by-side
         wrapper.style.display = 'flex'; 
         wrapper.style.textAlign = 'left';
-        wrapper.style.height = '250px'; 
-
-        // Remove final slide styles
-        slideText.classList.remove('final-slide-text');
-    }
-
-    // 1. Handle Image Display
-    if (slide.image) {
-        slideImage.src = slide.image;
-    } 
-
-    // 2. Set Button Text
-    nextSlideButton.innerText = isLastSlide ? 'Finished (Click to Re-read)' : 'Next Memory'; 
-
-    // 3. Start Typing
-    typeWriter(slide.text, 0, slideText, () => {
-        // Typing complete
-    });
-}
-
-
-// -----------------------------------------------------------
-// D. EVENT LISTENERS
-// -----------------------------------------------------------
-
-// 1. Initial Start Button Click (Gatekeeper)
-startButton.addEventListener('click', () => {
-    // START MUSIC ONCE
-    musicElement.src = 'aud.mp3'; 
-    musicElement.loop = true;
-    musicElement.play().catch(error => {
-        console.log('Music playback failed, continuing story.');
-    });
-
-    // Step 1: Trigger the smooth fade out 
-    startPageWrapper.style.opacity = '0';
-
-    // Step 2: After the fade-out duration (1000ms), hide it completely and show the story
-    setTimeout(() => {
-        // CRITICAL FIX: Add the new hidden class to remove it from the layout
-        startPageWrapper.classList.add('hidden-slide'); 
-        
-        // Show the story container
-        storySlide.style.display = 'flex';
-        
-        // Start the very first slide
-        displaySlide(currentSlideIndex);
-    }, 1000); 
-});
-
-// 2. Next Slide Button Click (Flow Controller)
-nextSlideButton.addEventListener('click', () => {
-    if (isTyping) return; 
-
-    if (currentSlideIndex < slideData.length - 1) {
-        currentSlideIndex++;
-        displaySlide(currentSlideIndex);
-    } else {
-        // If finished, reset to the first slide
-        musicElement.play(); 
-        currentSlideIndex = 0;
-        displaySlide(currentSlideIndex);
-    }
-});
+        wrapper.style.height = '2
