@@ -1,5 +1,4 @@
                          
-        
         document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startButton');
     const startPageWrapper = document.getElementById('startPageWrapper');
@@ -13,10 +12,10 @@
 
     // --- Configuration ---
     let currentSlideIndex = 0;
-    const MUSIC_FILE = 'music.mp3'; // Ensure this file exists in your directory!
-    const TYPING_SPEED = 40; // Milliseconds per character 
+    const MUSIC_FILE = 'music.mp3'; // Ensure this file exists!
+    const TYPING_SPEED = 0; // CRITICAL FIX: Set speed to 0 for instant, non-scrambled text
 
-    // Your Story Content
+    // Your Story Content (Cleaned up final message punctuation)
     const storySlides = [
         {
             image: 'photo1.jpg',
@@ -46,7 +45,7 @@
         // The Final Slide (Special Styling)
         {
             image: null, 
-            text: "“This may be the last time I get to speak to you like this, and I want every word to matter. You have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.”", // Removed asterisks for maximum compatibility
+            text: "“This may be the last time I get to speak to you like this, and I want every word to matter. You have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.”", 
             buttonText: 'Finished (Click to Re-read)',
             isFinal: true
         }
@@ -54,28 +53,15 @@
 
     // --- Core Functions ---
 
-    // CRITICAL FIX: Safe typing function
+    // Final Typing Function - Now for instant display
     function typeWriter(text, element, callback) {
-        // Use an array of individual characters for maximum compatibility
-        const characters = Array.from(text);
-        let i = 0;
+        // Skips the loop entirely, displays text instantly
+        element.textContent = text; 
         
-        element.textContent = ''; 
-        element.scrollTop = 0;
-        element.style.overflowY = 'hidden'; 
-        
-        function type() {
-            if (i < characters.length) {
-                // Use array index for guaranteed character retrieval
-                element.textContent += characters[i]; 
-                i++;
-                setTimeout(type, TYPING_SPEED); 
-            } else {
-                element.style.overflowY = 'auto'; 
-                if (callback) callback();
-            }
-        }
-        type();
+        // Ensure scrolling is active for long messages
+        element.style.overflowY = 'auto'; 
+
+        if (callback) callback();
     }
 
     function showSlide(index) {
@@ -118,7 +104,7 @@
             finalHeartRain.style.display = 'none';
         }
         
-        // 4. Typing Effect
+        // 4. Typing Effect (Now instant)
         typeWriter(slide.text, slideText);
     }
     
@@ -173,3 +159,4 @@
     // Initialize
     slideText.classList.add('final-slide-text'); 
 });
+                        
