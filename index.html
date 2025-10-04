@@ -1,11 +1,13 @@
-              <!DOCTYPE html>
+              
+                <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Sister!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <style>
+    
+    <style>
         /* CSS Variables */
         :root {
             --color-pink-soft: #f5c5b5; 
@@ -26,7 +28,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh; 
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden; 
         }
 
         .dotted-background {
@@ -91,7 +93,7 @@
             display: none; 
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            position: relative; /* Allows content to be layered over body background */
+            position: relative; 
         }
 
         .story-section {
@@ -101,7 +103,7 @@
             padding-bottom: 50px;
         }
 
-        /* Slide Styling (Same as before) */
+        /* Slide Styling */
         .slide {
             background-color: var(--color-pink-soft); 
             padding: 30px 20px;
@@ -196,7 +198,7 @@
             overflow: hidden;
             pointer-events: none;
         }
-        /* Heart Rain Keyframes (defined in previous replies) */
+
         @keyframes rain {
             0% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
             10% { opacity: 1; }
@@ -315,7 +317,39 @@
         
     </div>
 
-    <script src="script.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startButton = document.getElementById('startButton');
+            const startPageWrapper = document.getElementById('startPageWrapper');
+            const storyContainer = document.getElementById('storyContainer');
+            const backgroundMusic = document.getElementById('backgroundMusic');
+
+            // If the browser supports music play, we will handle it.
+            // If it doesn't (due to auto-play restrictions), the user has to click.
+            startButton.addEventListener('click', () => {
+                // 1. Start the music on user interaction
+                backgroundMusic.volume = 0.5;
+                backgroundMusic.play().catch(e => console.error("Music auto-play blocked or failed.", e));
+
+                // 2. Hide the start page
+                startPageWrapper.style.opacity = '0';
+                
+                // 3. Show the story content after the fade
+                setTimeout(() => {
+                    startPageWrapper.style.display = 'none';
+                    storyContainer.style.display = 'block';
+                    document.body.classList.add('dotted-background'); 
+                    
+                    // 4. Fade in the story content
+                    setTimeout(() => {
+                        storyContainer.style.opacity = '1';
+                        // Scroll the page to the top of the content
+                        window.scrollTo(0, 0); 
+                    }, 50); 
+                }, 1000); 
+            });
+        });
+    </script>
 </body>
-</html>
-                        
+</html>                
+            
