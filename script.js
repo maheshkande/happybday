@@ -165,4 +165,70 @@ function displaySlide(index) {
         // Set wrapper styles for side-by-side
         wrapper.style.display = 'flex'; 
         wrapper.style.textAlign = 'left';
-        wrapper.style.height = '2
+        wrapper.style.height = '250px'; 
+
+        // Remove final slide styles
+        slideText.classList.remove('final-slide-text');
+    }
+
+    // 1. Handle Image Display
+    if (slide.image) {
+        slideImage.src = slide.image;
+    } 
+
+    // 2. Set Button Text
+    nextSlideButton.innerText = isLastSlide ? 'Finished (Click to Re-read)' : 'Next Memory'; 
+
+    // 3. Start Typing
+    typeWriter(slide.text, 0, slideText, () => {
+        // Typing complete
+    });
+}
+
+
+// -----------------------------------------------------------
+// D. EVENT LISTENERS
+// -----------------------------------------------------------
+
+// Helper function to handle the actual transition logic
+function startTransition() {
+    // CRITICAL SAFETY FIX: Small delay to ensure the browser finishes rendering
+    setTimeout(() => {
+        // Step 1: Trigger the smooth fade out 
+        startPageWrapper.style.opacity = '0';
+
+        // Step 2: After the fade-out duration (1000ms), hide it completely and show the story
+        setTimeout(() => {
+            // CRITICAL FIX: Add the new hidden class to remove it from the layout
+            startPageWrapper.classList.add('hidden-slide'); 
+            
+            // Show the story container
+            storySlide.style.display = 'flex';
+            
+            // Start the very first slide
+            displaySlide(currentSlideIndex);
+        }, 1000); 
+    }, 10); // 10ms initial safety delay
+}
+
+
+// 1. Initial Start Button Click (Gatekeeper)
+startButton.addEventListener('click', () => {
+    // START MUSIC SAFELY: Use .then() and .catch() to ensure the transition
+    // happens whether the music starts or fails (the fix for the hanging button).
+    musicElement.src = 'aud.mp3'; 
+    musicElement.loop = true;
+    
+    musicElement.play()
+        .then(() => {
+            // Music started successfully: Proceed with transition
+            startTransition();
+        })
+        .catch(error => {
+            // Music blocked (common on mobile): Log error and FORCE transition
+            console.log('Music playback blocked, forcing story transition.');
+            startTransition();
+        });
+});
+
+//
