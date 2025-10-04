@@ -26,6 +26,7 @@ const colorPalette = [
 ];
 
 // --- Story Data (Your content) ---
+// SYNTAX CHECK: Ensure commas and quotes are perfect!
 const slideData = [
     {
         image: 'Snapchat-1145838159.jpg', 
@@ -214,8 +215,7 @@ function startTransition() {
 
 // 1. Initial Start Button Click (Gatekeeper)
 startButton.addEventListener('click', () => {
-    // START MUSIC SAFELY: Use .then() and .catch() to ensure the transition
-    // happens whether the music starts or fails (the fix for the hanging button).
+    // START MUSIC SAFELY: Fixes the mobile hanging issue.
     musicElement.src = 'aud.mp3'; 
     musicElement.loop = true;
     
@@ -225,10 +225,23 @@ startButton.addEventListener('click', () => {
             startTransition();
         })
         .catch(error => {
-            // Music blocked (common on mobile): Log error and FORCE transition
+            // Music blocked: Log error and FORCE transition
             console.log('Music playback blocked, forcing story transition.');
             startTransition();
         });
 });
 
-//
+// 2. Next Slide Button Click (Flow Controller)
+nextSlideButton.addEventListener('click', () => {
+    if (isTyping) return; 
+
+    if (currentSlideIndex < slideData.length - 1) {
+        currentSlideIndex++;
+        displaySlide(currentSlideIndex);
+    } else {
+        // If finished, reset to the first slide
+        musicElement.play(); 
+        currentSlideIndex = 0;
+        displaySlide(currentSlideIndex);
+    }
+});
