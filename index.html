@@ -5,49 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Sister!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    
-    <style>
+    <link rel="stylesheet" href="style.css"> <style>
         /* CSS Variables */
         :root {
-            --color-pink-soft: #f5c5b5; /* Slide 1 & 4 */
-            --color-green-soft: #b5f5c5; /* Slide 2 & 5 */
-            --color-purple-soft: #c5b5f5; /* Slide 3 */
+            --color-pink-soft: #f5c5b5; 
+            --color-green-soft: #b5f5c5; 
+            --color-purple-soft: #c5b5f5; 
             --color-text-dark: #333;
             --color-text-light: #fff;
+            --color-button: #a879a8;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--color-pink-soft);
+            background-color: #f0f0f0; 
             color: var(--color-text-dark);
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Scrollable page content */
             min-height: 100vh; 
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        /* Dotted pattern for the background */
         .dotted-background {
             background-image: radial-gradient(var(--color-text-dark) 1px, transparent 1px);
             background-size: 20px 20px;
         }
 
         /* --- Start Page Section --- */
-        .start-page {
-            background-image: url('start_bg.jpg'); /* Ensure this file exists! */
+        #startPageWrapper {
+            background-image: url('start_bg.jpg'); 
             background-size: cover;
             background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Needs to be full height so scrolling can start below it */
-            height: 100vh; 
+            height: 100vh;
             width: 100%;
             text-align: center;
-            position: relative;
+            position: fixed; 
+            top: 0;
+            left: 0;
+            z-index: 100; 
+            transition: opacity 1s ease-in-out;
         }
 
         .start-card {
@@ -70,13 +72,28 @@
             margin-bottom: 20px;
         }
 
-        .gift-instruction {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 25px;
+        .start-button {
+            background-color: var(--color-button);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            font-weight: 600;
         }
-        
-        /* --- Story Slides Section --- */
+
+        /* --- Story Container (Hidden initially) --- */
+        #storyContainer {
+            width: 100%;
+            display: none; 
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: relative; /* Allows content to be layered over body background */
+        }
+
         .story-section {
             width: 100%;
             max-width: 800px;
@@ -84,8 +101,9 @@
             padding-bottom: 50px;
         }
 
+        /* Slide Styling (Same as before) */
         .slide {
-            background-color: var(--color-pink-soft); /* Default color */
+            background-color: var(--color-pink-soft); 
             padding: 30px 20px;
             margin-bottom: 40px;
             border-radius: 20px;
@@ -94,7 +112,6 @@
             color: var(--color-text-dark);
         }
         
-        /* Specific slide colors and dot pattern for story slides */
         .slide:nth-child(2) { background-color: var(--color-green-soft); }
         .slide:nth-child(3) { background-color: var(--color-purple-soft); }
         .slide:nth-child(4) { background-color: var(--color-pink-soft); }
@@ -144,15 +161,12 @@
             background-color: black;
             color: var(--color-text-light);
             padding: 50px 20px;
-            margin-bottom: 0;
-            border-radius: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            box-shadow: none;
         }
 
         .final-text-box {
@@ -172,7 +186,7 @@
             color: white;
         }
         
-        /* Simple Heart Rain Animation (Pure CSS) */
+        /* Heart Rain Animation */
         .heart-rain {
             position: absolute;
             top: 0;
@@ -182,7 +196,13 @@
             overflow: hidden;
             pointer-events: none;
         }
-
+        /* Heart Rain Keyframes (defined in previous replies) */
+        @keyframes rain {
+            0% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
+        }
         .heart-rain span {
             position: absolute;
             width: 15px;
@@ -192,113 +212,110 @@
             opacity: 0;
             animation: rain 10s linear infinite;
         }
-
-        @keyframes rain {
-            0% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
-        }
-
         .heart-rain span:nth-child(2n) { background: #ffaaaa; animation-delay: 1.5s; }
         .heart-rain span:nth-child(3n) { animation-delay: 3s; left: 50%; }
         .heart-rain span:nth-child(4n) { animation-delay: 4.5s; }
         .heart-rain span:nth-child(5n) { animation-delay: 6s; left: 75%; }
+
     </style>
 </head>
-<body class="dotted-background">
+<body>
 
-    <section class="start-page" id="startPageWrapper">
+    <section id="startPageWrapper">
         <div class="start-card">
             <h1 class="start-title">Happy Birthday</h1>
             <h2 class="start-subtitle">My Dearest Sister...</h2>
             <p class="gift-instruction">
-                Please turn up your volume and scroll down to begin your special story.
+                Please turn up your volume before opening your gift.
             </p>
-            <audio src="music.mp3" controls loop style="margin-top: 20px;"></audio>
-            <p style="margin-top: 20px; font-size: 0.9em; color: #666;">(Tell her to tap the play button above to start the music!)</p>
+            <button id="startButton" class="start-button">Open Your Gift! 💖</button>
+            <audio id="backgroundMusic" src="music.mp3" loop style="display: none;"></audio>
         </div>
     </section>
 
-    <div class="story-section">
+    <div id="storyContainer">
         
-        <div class="slide">
-            <div class="slide-content">
-                <div class="image-wrapper">
-                    <img class="slide-image" src="photo1.jpg" alt="Memory Photo 1">
-                </div>
-                <div class="slide-text-box">
-                    My Dear Sister, I wanted to tell you how much you mean to me. I know I don't say this often, but you are the best sister a person could ask for. Thank you for always being there for me, unconditionally.
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="slide-content">
-                <div class="image-wrapper">
-                    <img class="slide-image" src="photo2.jpg" alt="Memory Photo 2">
-                </div>
-                <div class="slide-text-box">
-                    Remember all those silly fights we used to have? They feel so small now. Every memory we share, whether good or bad, I cherish it all. You are a true blessing in my life.
+        <div class="story-section">
+            
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="image-wrapper">
+                        <img class="slide-image" src="photo1.jpg" alt="Memory Photo 1">
+                    </div>
+                    <div class="slide-text-box">
+                        My Dear Sister, I wanted to tell you how much you mean to me. I know I don't say this often, but you are the best sister a person could ask for. Thank you for always being there for me, unconditionally.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="slide">
-            <div class="slide-content">
-                <div class="image-wrapper">
-                    <img class="slide-image" src="photo3.jpg" alt="Memory Photo 3">
-                </div>
-                <div class="slide-text-box">
-                    Ela start cheyalo, ela end cheyalo teliyadu. Ur the best one ra, you always had my back. Enno sarlu rakhi roju rakhi kadthavu anukune vaadini but I know you love me equally.
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="image-wrapper">
+                        <img class="slide-image" src="photo2.jpg" alt="Memory Photo 2">
+                    </div>
+                    <div class="slide-text-box">
+                        Remember all those silly fights we used to have? They feel so small now. Every memory we share, whether good or bad, I cherish it all. You are a true blessing in my life.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="slide">
-            <div class="slide-content">
-                <div class="image-wrapper">
-                    <img class="slide-image" src="photo4.jpg" alt="Memory Photo 4">
-                </div>
-                <div class="slide-text-box">
-                    Ala ani yekkuva smile cheyaku ra, distti thakkuthundhi. I love that you're always trying to make things better for everyone, even when you're going through tough times. You are stronger than you think.
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="image-wrapper">
+                        <img class="slide-image" src="photo3.jpg" alt="Memory Photo 3">
+                    </div>
+                    <div class="slide-text-box">
+                        Ela start cheyalo, ela end cheyalo teliyadu. Ur the best one ra, you always had my back. Enno sarlu rakhi roju rakhi kadthavu anukune vaadini but I know you love me equally.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="slide">
-            <div class="slide-content">
-                <div class="image-wrapper">
-                    <img class="slide-image" src="photo5.jpg" alt="Memory Photo 5">
-                </div>
-                <div class="slide-text-box">
-                    From sharing secrets to covering up for each other, we've done it all. May your special day be filled with joy, laughter, and everything you wished for.
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="image-wrapper">
+                        <img class="slide-image" src="photo4.jpg" alt="Memory Photo 4">
+                    </div>
+                    <div class="slide-text-box">
+                        Ala ani yekkuva smile cheyaku ra, distti thakkuthundhi. I love that you're always trying to make things better for everyone, even when you're going through tough times. You are stronger than you think.
+                    </div>
                 </div>
             </div>
+
+            <div class="slide">
+                <div class="slide-content">
+                    <div class="image-wrapper">
+                        <img class="slide-image" src="photo5.jpg" alt="Memory Photo 5">
+                    </div>
+                    <div class="slide-text-box">
+                        From sharing secrets to covering up for each other, we've done it all. May your special day be filled with joy, laughter, and everything you wished for.
+                    </div>
+                </div>
+            </div>
+
         </div>
 
+        <section class="final-slide">
+            <div class="heart-rain">
+                <span style="left: 10%;"></span>
+                <span style="left: 20%;"></span>
+                <span style="left: 30%;"></span>
+                <span style="left: 40%;"></span>
+                <span style="left: 60%;"></span>
+                <span style="left: 70%;"></span>
+                <span style="left: 80%;"></span>
+                <span style="left: 90%;"></span>
+            </div>
+
+            <div class="final-text-box">
+                “This may be the last time I get to speak to you like this, and I want every word to matter. You have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.”
+            </div>
+            
+            <h2 style="margin-top: 50px; font-family: 'Dancing Script', cursive; font-size: 2em; color: white;">I Love You, Akka.</h2>
+        </section>
+        
     </div>
 
-    <section class="final-slide">
-        <div class="heart-rain">
-            <span style="left: 10%;"></span>
-            <span style="left: 20%;"></span>
-            <span style="left: 30%;"></span>
-            <span style="left: 40%;"></span>
-            <span style="left: 60%;"></span>
-            <span style="left: 70%;"></span>
-            <span style="left: 80%;"></span>
-            <span style="left: 90%;"></span>
-        </div>
-
-        <div class="final-text-box">
-            “This may be the last time I get to speak to you like this, and I want every word to matter. You have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.”
-        </div>
-        
-        <h2 style="margin-top: 50px; font-family: 'Dancing Script', cursive; font-size: 2em; color: white;">I Love You, Akka.</h2>
-    </section>
+    <script src="script.js"></script> 
 </body>
-</html>         
-        
-                
-        
+</html>
+                        
