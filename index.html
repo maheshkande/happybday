@@ -1,4 +1,4 @@
-            <!DOCTYPE html>
+           <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,17 +121,17 @@
     /* Text box is solid white for readability */
     #slideText {
         width: 100%; 
-        /* CRITICAL FIX: Increased max-height to ensure text doesn't run under the button */
-        min-height: 100px; /* Slightly taller minimum */
-        max-height: 180px; /* Allowed max height */
+        /* CRITICAL FIX: Increased padding and allowed for more height */
+        min-height: 120px; /* Taller minimum height to hold more text */
+        max-height: 200px; /* Allowed maximum height for scrolling */
         background: white; 
         color: black; 
-        padding: 15px 20px;
+        padding: 20px; /* Increased padding around text */
         border-radius: 10px;
         text-align: center; 
         font-size: 1em;
         line-height: 1.4;
-        overflow-y: auto; /* Allows scrolling for longer messages */
+        overflow-y: auto; 
         box-sizing: border-box; 
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         margin-bottom: 0; 
@@ -199,4 +199,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>                  
+</html>         
