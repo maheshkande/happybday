@@ -1,183 +1,118 @@
-        // --- Elements ---
-const musicElement = document.getElementById('backgroundMusic'); 
-const startButton = document.getElementById('startButton');
-const startPageWrapper = document.getElementById('startPageWrapper'); 
-const storySlide = document.getElementById('storySlide');
-const slideImage = document.getElementById('slideImage');
-const slideText = document.getElementById('slideText');
-const nextSlideButton = document.getElementById('nextSlideButton');
-const body = document.querySelector('body'); 
-const slideImageWrapper = document.getElementById('slideImageWrapper');
-const finalHeartRain = document.getElementById('finalHeartRain'); 
+     document.addEventListener('DOMContentLoaded', () => {
+    const startButton = document.getElementById('startButton');
+    const startPageWrapper = document.getElementById('startPageWrapper');
+    const storySlide = document.getElementById('storySlide');
+    const slideImage = document.getElementById('slideImage');
+    const slideImageWrapper = document.getElementById('slideImageWrapper');
+    const slideText = document.getElementById('slideText');
+    const nextSlideButton = document.getElementById('nextSlideButton');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const finalHeartRain = document.getElementById('finalHeartRain');
 
-// --- Color Palette for Transitions ---
-const colorPalette = [
-    '#ffc0cb', '#add8e6', '#90ee90', '#f08080', 
-    '#e6e6fa', '#ffa07a', '#bdb76b'
-];
+    // --- Configuration ---
+    let currentSlideIndex = 0;
+    const MUSIC_FILE = 'music.mp3'; // Ensure this file exists in your directory!
 
-// --- Story Data (Your content) ---
-const slideData = [
-    // ... (Your slide data objects remain unchanged)
-    { image: 'Snapchat-1145838159.jpg', text: "ela start cheyalo or ela cheppalo teliyatledu anyway happiest birthday my most precious one💕. Appude nek 19yrs ochesai ra, lock down lo parchayam ayyavu annayya ani msg chesavu, chala important aipoyavu. Ala neetho years pass ayyayi chala love and care choopinchavu💛" },
-    { image: 'Snapchat-365689331.jpg', text: "u r the best one ra. Yeppudu ala navvuthu undu ra, ni smile chala baguntundi. Neetho spend chesina every moment oka manchi memory ra🧡\n\n\"Ala ani yekkuva smile cheyaku ra distti thakkuthadi😸jk\"" },
-    { image: 'Snapchat-1427051426.jpg', text: "Enno sarlu rakhi roju rakhi kadthavu anukune vaadini but okasari kuda avvaledu kani oka rakhi roju kuda miss cheyale nannu wish cheyadam, na paina entha kopam unna avvi anni pakkaki petti wish chesavu🥺" },
-    { image: 'Snapchat-1836466991.jpg', text: "na kosam oka gift 5yr dachipettavu chudu I can feel how I am being mean to you have always been my frst priority." },
-    { image: 'Snapchat-1563547988.jpg', text: "No matter how many mistakes I’ve made, my love and respect for you will never change. You’ve always been my strength, my comfort, and my safe place. You deserve someone who will always protect your smile, never hurt your heart, and never let you feel alone." },
-    { image: 'Snapchat-178153357.jpg', text: "You were the one who cared for me when no one else did, the one who made sure I never felt alone. Every little act of love from u still lives in my heart, and I realize now how deeply I needed it, how much I need u even today." },
-    { image: 'Snapchat-195531423.jpg', text: "You always felt my pain even when I didn’t say a word, and you stood by me when I couldn’t stand for myself. That kind of care is rare, and I will never forget how much you gave without expecting anything in return." },
-    { image: 'Snapchat-3578566.jpg', text: "Happy Birthday to the sweetest sister in the world! 🎂✨ You are my biggest blessing, my endless joy, and the one I’ll love not just for today, but for forever — to infinity and beyond. May your heart always shine as bright as your smile.\" 💖\n\n\"Love you from the moon to the stars and beyond 🤗💕\"" },
-    {
-        // FINAL, TEXT-ONLY APOLOGY SLIDE
-        image: null, 
-        text: "*\"This may be the last time I get to speak to you like this, and I want every word to matter.\n\nYou have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.\n\nI know now that I’m not the brother you wanted… not the one you deserve. You deserve someone who will always protect your smile, never hurt your heart, and never let you feel alone. I wasn’t that person, though I wished I could be.\n\nNo matter where life takes you from here, please remember: every moment, every memory, every bit of love you gave me will stay with me. Even if I’m no longer by your side, a part of me will always be carrying you in my heart. I’m sorry… for everything.\"🥺❤*"
-    }
-];
+    // Your Story Content
+    const storySlides = [
+        {
+            image: 'photo1.jpg',
+            text: "My Dear Sister, I wanted to tell you how much you mean to me. I know I don't say this often, but you are the best sister a person could ask for. Thank you for always being there for me, unconditionally.",
+            buttonText: 'Next Memory'
+        },
+        {
+            image: 'photo2.jpg',
+            text: "Remember all those silly fights we used to have? They feel so small now. Every memory we share, whether good or bad, I cherish it all. You are a true blessing in my life.",
+            buttonText: 'Next Memory'
+        },
+        {
+            image: 'photo3.jpg',
+            text: "Ela start cheyalo, ela end cheyalo teliyadu. Ur the best one ra, you always had my back. Enno sarlu rakhi roju rakhi kadthavu anukune vaadini but I know you love me equally.",
+            buttonText: 'Next Memory'
+        },
+        {
+            image: 'photo4.jpg',
+            text: "Ala ani yekkuva smile cheyaku ra, distti thakkuthundhi. I love that you're always trying to make things better for everyone, even when you're going through tough times. You are stronger than you think.",
+            buttonText: 'Next Memory'
+        },
+        {
+            image: 'photo5.jpg',
+            text: "From sharing secrets to covering up for each other, we've done it all. May your special day be filled with joy, laughter, and everything you wished for.",
+            buttonText: 'Next Memory'
+        },
+        // The Final Slide (Special Styling)
+        {
+            image: null, // No image for the final slide
+            text: "*\"This may be the last time I get to speak to you like this, and I want every word to matter. You have been my light, my strength, my safe place. You gave me more love and care than I ever deserved, and I failed to hold on to it. Every mistake I made has cost me the most precious person in my life — you.\"*",
+            buttonText: 'Finished (Click to Re-read)',
+            isFinal: true
+        }
+    ];
 
-// --- State Management ---
-let currentSlideIndex = 0;
-let isTyping = false;
+    // --- Core Functions ---
 
-// -----------------------------------------------------------
-// A. TYPING EFFECT FUNCTION (Unchanged)
-// -----------------------------------------------------------
-function typeWriter(text, i, element, callback) {
-    if (i < text.length) {
-        isTyping = true;
-        const char = text.substring(i, i + 1);
-        element.innerHTML = element.innerHTML.replace(/\n/g, '<br>') + 
-            `<span style="color:#ffc0cb; transition:color 0.1s;">${char}</span>`;
-        setTimeout(() => {
-            const spans = element.querySelectorAll('span');
-            if (spans.length > 0) {
-                spans[spans.length - 1].removeAttribute('style'); 
+    function typeWriter(text, element, callback) {
+        let i = 0;
+        element.textContent = ''; // Clear existing text
+        
+        // CRITICAL FIX: Reset scrolling before typing starts
+        element.scrollTop = 0;
+        element.style.overflowY = 'hidden'; 
+        
+        function type() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                requestAnimationFrame(type);
+            } else {
+                // CRITICAL FIX: Re-enable scrolling after typing is complete
+                element.style.overflowY = 'auto'; 
+                if (callback) callback();
             }
-        }, 50);
-        setTimeout(() => {
-            typeWriter(text, i + 1, element, callback);
-        }, 20); 
-    } else {
-        isTyping = false;
-        element.innerHTML = text.replace(/\n/g, '<br>');
-        if (callback) callback();
-    }
-}
-
-
-// -----------------------------------------------------------
-// B. COLOR CHANGER FUNCTION 
-// -----------------------------------------------------------
-function changeBodyColor() {
-    const randomIndex = Math.floor(Math.random() * colorPalette.length);
-    const newColor = colorPalette[randomIndex];
-    body.style.backgroundColor = newColor;
-}
-
-
-// -----------------------------------------------------------
-// C. DISPLAY SLIDE FUNCTION 
-// -----------------------------------------------------------
-function displaySlide(index) {
-    const slide = slideData[index];
-    slideText.innerHTML = ''; 
-    const isLastSlide = index === slideData.length - 1;
-    const wrapper = document.querySelector('.slide-content-wrapper');
-
-    nextSlideButton.classList.add('sparkle-effect');
-    setTimeout(() => {
-        nextSlideButton.classList.remove('sparkle-effect');
-    }, 400); 
-
-    // --- LAST SLIDE (Full-screen apology) ---
-    if (isLastSlide) {
-        body.style.backgroundColor = 'black'; 
-        body.classList.remove('dotted-background'); // Remove dots
-        
-        slideImageWrapper.style.display = 'none'; 
-        
-        wrapper.style.display = 'block'; 
-        wrapper.style.textAlign = 'center'; 
-        
-        slideText.classList.add('final-slide-text');
-        finalHeartRain.style.display = 'block';
-        slideText.style.color = 'white';
-        
-    } else {
-        // --- STANDARD SLIDES (Side-by-Side) ---
-        changeBodyColor(); 
-        body.classList.add('dotted-background'); // Add dots
-        
-        finalHeartRain.style.display = 'none';
-        
-        slideImageWrapper.style.display = 'block'; 
-        
-        wrapper.style.display = 'flex'; 
-        wrapper.style.textAlign = 'left'; 
-        
-        slideText.classList.remove('final-slide-text');
-        slideText.style.color = 'black';
+        }
+        type();
     }
 
-    // 1. Handle Image Display
-    if (slide.image) {
-        slideImage.src = slide.image;
-    } 
+    function showSlide(index) {
+        const slide = storySlides[index];
 
-    // 2. Set Button Text
-    nextSlideButton.innerText = isLastSlide ? 'Finished (Click to Re-read)' : 'Next Memory'; 
+        // 1. Image handling
+        if (slide.image) {
+            slideImage.src = slide.image;
+            slideImageWrapper.style.display = 'block';
+            slideImageWrapper.classList.remove('hidden-slide');
+        } else {
+            // Hide image wrapper for the final slide
+            slideImageWrapper.style.display = 'none';
+            slideImageWrapper.classList.add('hidden-slide');
+        }
 
-    // 3. Start Typing
-    typeWriter(slide.text, 0, slideText, () => {
-        // Typing complete
-    });
-}
+        // 2. Button Text Update
+        nextSlideButton.textContent = slide.buttonText;
 
-
-// -----------------------------------------------------------
-// D. EVENT LISTENERS
-// -----------------------------------------------------------
-function startTransition() {
-    setTimeout(() => {
-        startPageWrapper.style.opacity = '0';
-
-        setTimeout(() => {
-            startPageWrapper.classList.add('hidden-slide'); 
-            storySlide.style.display = 'flex';
-            displaySlide(currentSlideIndex);
-        }, 1000); 
-    }, 10); 
-}
-
-
-// 1. Initial Start Button Click (Gatekeeper)
-startButton.addEventListener('click', () => {
-    musicElement.src = 'aud.mp3'; 
-    musicElement.loop = true;
-    
-    musicElement.play()
-        .then(() => {
-            startTransition();
-        })
-        .catch(error => {
-            console.log('Music playback blocked, forcing story transition.');
-            startTransition();
-        });
-});
-
-// 2. Next Slide Button Click (Flow Controller)
-nextSlideButton.addEventListener('click', () => {
-    if (isTyping) {
-        slideText.innerHTML = slideData[currentSlideIndex].text.replace(/\n/g, '<br>');
-        isTyping = false;
-        return;
+        // 3. Final Slide Aesthetics
+        if (slide.isFinal) {
+            slideText.classList.add('final-slide-text');
+            storySlide.style.backgroundColor = 'black';
+            document.body.style.backgroundColor = 'black';
+            document.body.classList.remove('dotted-background'); // Remove dots for final slide
+            finalHeartRain.style.display = 'block';
+            nextSlideButton.onclick = () => showSlide(0); // Loop back to start
+        } else {
+            slideText.classList.remove('final-slide-text');
+            // Background colors for standard slides (match your pattern colors)
+            const colors = ['#f5c5b5', '#b5f5c5', '#c5b5f5'];
+            storySlide.style.backgroundColor = colors[index % colors.length];
+            document.body.style.backgroundColor = colors[index % colors.length];
+            document.body.classList.add('dotted-background'); // Ensure dots are here
+            finalHeartRain.style.display = 'none';
+        }
+        
+        // 4. Typing Effect
+        typeWriter(slide.text, slideText);
     }
 
-    if (currentSlideIndex < slideData.length - 1) {
-        currentSlideIndex++;
-        displaySlide(currentSlideIndex);
-    } else {
-        musicElement.play(); 
-        currentSlideIndex = 0;
-        displaySlide(currentSlideIndex);
-    }
-});
+    function startSlideshow() {
+        // Aesthetic Fixes:
+        backgroundMusic.src = MUSIC_FILE;
+        backgroundMusic.volume   
